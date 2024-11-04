@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools >= 69.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "reference-vault"
+version = "0.0.1"
+description = "This is a knowledge vault used to gather reference implementations of machine learning algorithms that helped me navigate the contents of the Machine Learning Specialization provided by Stanford and DeepLearning.AI."
+authors = [{name = "Rolando Lora"}]
+license = {file = "LICENSE"}
+requires-python = ">=3.12"
+
+dependencies = [
+  "ipykernel==6.29.5",
+  "ipympl==0.9.4",
+  "matplotlib==3.9.2",
+  "numpy==2.0.2",
+  "rich==13.9.4",
+  "scikit-learn==1.5.2",
+  "seaborn==0.13.2"
+]
+
+[project.scripts]
+reference-vault = "app.main:main"
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
