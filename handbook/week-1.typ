@@ -159,3 +159,13 @@ Machine Learning is increasingly being applied in industries and solving critica
 + *Climate Change*: Optimizing wind turbine power generation.
 + *Healthcare*: Assisting doctors in accurate diagnosis.
 + *ManufacturinG*: Using computer vision to detect defects in assembly lines.
+
+= Supervised vs. Unsupervised Machine Learning
+== Machine Learning definition
+Machine learning is a field of study that gives computers the ability to learn without being explicitly programmed. This concept was first introduced by Arthur Samuel, who demonstrated it with a checkers-playing program in the 1950s. The program improved by playing tens of thousands of games against itself, learning from patterns of success and failure, and eventually outperforming Samuel himself.
+
+1. Learning Algorithms Improve with Experience
+- More data or learning algorithm opportunities has better performs.
+
+2. Types of Machine Learning
+- Supervised Learnin, Unsupervised Learning.
