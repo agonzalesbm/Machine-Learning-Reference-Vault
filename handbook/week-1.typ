@@ -245,3 +245,44 @@ Classification is a supervised learning algorithm that predicts categories or cl
 
 *Boundary Detection*  
 In cases with two inputs (e.g., tumor size and patient age), the algorithm learns to draw a decision boundary that separates classes (e.g., benign vs. malignant).   
+
+== Unsupervised Learning
+Supervised learning is widely used in machine learning, but another key category is *unsupervised learning*. Unlike supervised learning, where data comes with labeled outputs, unsupervised learning deals with unlabeled data. This approach aims to discover patterns or structures in the data without predefined labels.
+
+=== Key Concept
+*Unsupervised learning* does not provide the algorithm with output labels (Y). Instead, the goal is to explore the data and identify hidden structures, clusters, or patterns.  
+
+=== Example Scenario  
+Imagine a dataset containing tumor size and patient age. Without labels indicating whether a tumor is benign or malignant, an unsupervised algorithm analyzes the data to find groups or clusters.  
+== Types of Unsupervised Learning  
+
+=== Clustering Algorithms  
+
+Clustering involves grouping similar data points together based on patterns or shared characteristics. This type of unsupervised learning is widely used in various applications.
+
+*Example 1: Google News * 
+Google News uses clustering to group related news articles.  
+- *Process*:  
+    - The algorithm analyzes articles and identifies recurring keywords like "panda," "twins," or "zoo."  
+    - Articles with similar words are grouped into clusters.  
+- *Significance*:  
+    - No human supervises the process.  
+    - The algorithm adapts to new news topics daily.  
+
+*Example 2: Genetic Data Clustering*
+DNA microarrays contain information about genetic activity.  
+- *Structure*:  
+    - Each column represents one person's genetic data.  
+    - Rows represent specific genes (e.g., for eye color or height).  
+- *Clustering*:  
+    - The algorithm identifies groups of individuals with similar genetic traits, assigning them to "type 1," "type 2," etc.  
+
+*Example 3: Market Segmentation*
+Businesses use clustering to categorize customers into distinct market segments.  
+- *Process*:  
+    - Analyze customer data to identify patterns in motivations, interests, or behaviors.  
+- *Application*:  
+    - Group customers for targeted marketing or personalized service.  
+
+=== Applications Beyond Clustering  
+Clustering is just one type of unsupervised learning. Other approaches explore different structures in the data, such as dimensionality reduction or anomaly detection, but all share the same unsupervised principle: discovering insights without predefined labels.
