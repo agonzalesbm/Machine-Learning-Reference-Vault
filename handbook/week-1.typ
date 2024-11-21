@@ -519,58 +519,55 @@ Clustering is just one type of unsupervised learning. Other approaches explore d
 - Points with equal $J(w, b)$ in the contour plot correspond to models with similar predictive quality.
 
 == Gradient Descent
-Gradient descent is an algorithm used to minimize a cost function $J(w, b)$.  
-- It systematically finds the values of $w$ and $b$ that minimize $J(w, b)$.  
+Gradient descent is an algorithm used to minimize a cost function $J(w, b)$.
+- It systematically finds the values of $w$ and $b$ that minimize $J(w, b)$.
 - It is widely used in machine learning, including in training neural networks (deep learning).
 
 #figure(
   image("./images/2024-11-3d-model.png"),
 )
 === Application Scope
-Gradient descent is not limited to linear regression cost functions.  
-- It can minimize any differentiable function, including functions with multiple parameters.  
+Gradient descent is not limited to linear regression cost functions.
+- It can minimize any differentiable function, including functions with multiple parameters.
 
 === How Gradient Descent Works
 1. Start with initial guesses for parameters ($w$ and $b$).
-   - Common choice: $w = 0$ and $b = 0$.  
-2. Adjust $w$ and $b$ iteratively to reduce $J(w, b)$.  
-3. Continue updating until $J(w, b)$ reaches or is near its minimum.  
+   - Common choice: $w = 0$ and $b = 0$.
+2. Adjust $w$ and $b$ iteratively to reduce $J(w, b)$.
+3. Continue updating until $J(w, b)$ reaches or is near its minimum.
 
 === Surface Plot Example
-Supose $J(w, b)$ represented as a surface plot:  
-- $w$ and $b$ define the horizontal axes.  
-- $J(w, b)$ defines the vertical axis (height of the surface).  
+Supose $J(w, b)$ represented as a surface plot:
+- $w$ and $b$ define the horizontal axes.
+- $J(w, b)$ defines the vertical axis (height of the surface).
 
 === Analogy: Descending a Hill
-1. *Starting Point:*  
-   Supose standing on a hill. The height corresponds to $J(w, b)$ at that point.  
-2. *Choosing the Direction:*  
-   - Spin 360 degrees and determine the direction of steepest descent.  
-   - Take a small step in that direction.  
+1. *Starting Point:*
+   Supose standing on a hill. The height corresponds to $J(w, b)$ at that point.
+2. *Choosing the Direction:*
+   - Spin 360 degrees and determine the direction of steepest descent.
+   - Take a small step in that direction.
 3. *Repeat:*  
-   - After each step, reassess and take another step downhill.  
+   - After each step, reassess and take another step downhill.
    - Continue until you reach a local minimum.
 
 == Key Properties of Gradient Descent
 
 === Local Minima
-- *Definition:* A local minimum is a point where $J(w, b)$ is lower than at any nearby point.  
+- *Definition:* A local minimum is a point where $J(w, b)$ is lower than at any nearby point.
 - *Behavior:*  
-  - The algorithm converges to the local minimum nearest to the starting point.  
+  - The algorithm converges to the local minimum nearest to the starting point.
   - Different starting points may lead to different local minima.
 
 ==== Example: Multiple Valleys
-1. Start in one valley: Gradient descent will lead to the local minimum of that valley.  
-2. Start in another valley: Gradient descent will find the local minimum of this second valley.  
+1. Start in one valley: Gradient descent will lead to the local minimum of that valley.
+2. Start in another valley: Gradient descent will find the local minimum of this second valley.
    - This demonstrates the dependency on the starting point.
   
 === Gradient Descent Algorithm
 
 #figure(
   image("./images/2024-11-21-gradiant-equation.png"),
-  caption: [
-    I made this diagram using _excalidraw_, that, in my head, represents what we are trying to do. $x^(\(i\))$ is the $i$-th training example, and $y^(\(i\))$ is the $i$-th training label.
-  ]
 )
 
 ==== Update Equation
@@ -616,38 +613,37 @@ Supose $J(w, b)$ represented as a surface plot:
 - No prior knowledge of calculus required to implement gradient descent.
 
 == Application Scope
-
-Gradient descent is not limited to linear regression cost functions.  
-- It can minimize any differentiable function, including functions with multiple parameters.  
+Gradient descent is not limited to linear regression cost functions.
+- It can minimize any differentiable function, including functions with multiple parameters.
 - Example: $J(w_1, w_2, dots, w_n, b)$, where the goal is to minimize $J$ by adjusting $w_1$ through $w_n$ and $b$.
 
 === How Gradient Descent Works
 1. Start with initial guesses for parameters ($w$ and $b$).
-   - Common choice: $w = 0$ and $b = 0$.  
-2. Adjust $w$ and $b$ iteratively to reduce $J(w, b)$.  
-3. Continue updating until $J(w, b)$ reaches or is near its minimum.  
+   - Common choice: $w = 0$ and $b = 0$.
+2. Adjust $w$ and $b$ iteratively to reduce $J(w, b)$.
+3. Continue updating until $J(w, b)$ reaches or is near its minimum.
 
 === Surface Plot Example
-Supose $J(w, b)$ represented as a surface plot:  
-- $w$ and $b$ define the horizontal axes.  
-- $J(w, b)$ defines the vertical axis (height of the surface).  
+Supose $J(w, b)$ represented as a surface plot:
+- $w$ and $b$ define the horizontal axes.
+- $J(w, b)$ defines the vertical axis (height of the surface).
 
 === Analogy: Descending a Hill
-1. *Starting Point:*  
-   Supose standing on a hill. The height corresponds to $J(w, b)$ at that point.  
-2. *Choosing the Direction:*  
-   - Spin 360 degrees and determine the direction of steepest descent.  
-   - Take a small step in that direction.  
-3. *Repeat:*  
-   - After each step, reassess and take another step downhill.  
+1. *Starting Point:*
+   Supose standing on a hill. The height corresponds to $J(w, b)$ at that point.
+2. *Choosing the Direction:*
+   - Spin 360 degrees and determine the direction of steepest descent.
+   - Take a small step in that direction.
+3. *Repeat:*
+   - After each step, reassess and take another step downhill.
    - Continue until you reach a local minimum.
 
 === Local Minima
-- *Definition:* A local minimum is a point where $J(w, b)$ is lower than at any nearby point.  
-- *Behavior:*  
-  - The algorithm converges to the local minimum nearest to the starting point.  
+- *Definition:* A local minimum is a point where $J(w, b)$ is lower than at any nearby point.
+- *Behavior:*
+  - The algorithm converges to the local minimum nearest to the starting point.
   - Different starting points may lead to different local minima.
-  
+
 == The Role of Learning Rate
 
 === Understanding Alpha (Learning Rate)
