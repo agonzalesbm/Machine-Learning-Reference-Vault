@@ -517,3 +517,203 @@ Clustering is just one type of unsupervised learning. Other approaches explore d
 
 ==== Example
 - Points with equal $J(w, b)$ in the contour plot correspond to models with similar predictive quality.
+
+== Gradient Descent
+Gradient descent is an algorithm used to minimize a cost function $J(w, b)$.  
+- It systematically finds the values of $w$ and $b$ that minimize $J(w, b)$.  
+- It is widely used in machine learning, including in training neural networks (deep learning).
+
+#figure(
+  image("./images/2024-11-3d-model.png"),
+)
+=== Application Scope
+Gradient descent is not limited to linear regression cost functions.  
+- It can minimize any differentiable function, including functions with multiple parameters.  
+
+=== How Gradient Descent Works
+1. Start with initial guesses for parameters ($w$ and $b$).
+   - Common choice: $w = 0$ and $b = 0$.  
+2. Adjust $w$ and $b$ iteratively to reduce $J(w, b)$.  
+3. Continue updating until $J(w, b)$ reaches or is near its minimum.  
+
+=== Surface Plot Example
+Supose $J(w, b)$ represented as a surface plot:  
+- $w$ and $b$ define the horizontal axes.  
+- $J(w, b)$ defines the vertical axis (height of the surface).  
+
+=== Analogy: Descending a Hill
+1. *Starting Point:*  
+   Supose standing on a hill. The height corresponds to $J(w, b)$ at that point.  
+2. *Choosing the Direction:*  
+   - Spin 360 degrees and determine the direction of steepest descent.  
+   - Take a small step in that direction.  
+3. *Repeat:*  
+   - After each step, reassess and take another step downhill.  
+   - Continue until you reach a local minimum.
+
+== Key Properties of Gradient Descent
+
+=== Local Minima
+- *Definition:* A local minimum is a point where $J(w, b)$ is lower than at any nearby point.  
+- *Behavior:*  
+  - The algorithm converges to the local minimum nearest to the starting point.  
+  - Different starting points may lead to different local minima.
+
+==== Example: Multiple Valleys
+1. Start in one valley: Gradient descent will lead to the local minimum of that valley.  
+2. Start in another valley: Gradient descent will find the local minimum of this second valley.  
+   - This demonstrates the dependency on the starting point.
+  
+=== Gradient Descent Algorithm
+
+#figure(
+  image("./images/2024-11-21-gradiant-equation.png"),
+  caption: [
+    I made this diagram using _excalidraw_, that, in my head, represents what we are trying to do. $x^(\(i\))$ is the $i$-th training example, and $y^(\(i\))$ is the $i$-th training label.
+  ]
+)
+
+==== Update Equation
+- $w = w - alpha {partial}/{partial w} J(w, b)$
+- This means the parameter $w$ is updated by subtracting $alpha$ times the derivative of the cost function $J(w, b)$ with respect to $w$.
+
+=== Key Components
+- *$alpha$ (Learning Rate)*:
+  - A small positive number (e.g., 0.01).
+  - Controls step size in the descent.
+  - Larger $alpha$: aggressive steps.
+  - Smaller $alpha$: baby steps.
+- *Derivative Term*:
+  - $frac{partial}{partial w} J(w, b)$ indicates the direction for updating $w$.
+  - Combined with $alpha$, determines the magnitude of the step.
+
+== Assignment Operator
+- *Code Context*: $a = c$ stores the value of $c$ in $a$.
+- *Math Context*: $a = c$ asserts equality.
+- Programming uses $==$ for testing equality.
+
+== Two Parameters: $w$ and $b$
+- Both parameters are updated similarly:
+  - $b = b - alpha frac{partial}{partial b} J(w, b)$
+
+== Simultaneous Updates
+- *Correct Implementation*:
+  - Compute updates for both $w$ and $b$ simultaneously:
+- *Incorrect Implementation*:
+  - Update $w$ first, then use the new $w$ to compute $b$.
+  - Leads to inconsistent updates as $b$ uses updated $w$.
+
+== Convergence
+- Repeat update steps until $w$ and $b$ stabilize.
+- Convergence occurs when parameters no longer change significantly.
+
+== Gradient Descent Details
+- Simultaneous update is essential for proper gradient descent.
+- Non-simultaneous updates resemble another algorithm with different properties.
+
+== Next Steps
+- Explore derivative terms (${partial}/{partial w}$ and ${partial}/{partial b}$) in detail.
+- No prior knowledge of calculus required to implement gradient descent.
+
+== Application Scope
+
+Gradient descent is not limited to linear regression cost functions.  
+- It can minimize any differentiable function, including functions with multiple parameters.  
+- Example: $J(w_1, w_2, dots, w_n, b)$, where the goal is to minimize $J$ by adjusting $w_1$ through $w_n$ and $b$.
+
+=== How Gradient Descent Works
+1. Start with initial guesses for parameters ($w$ and $b$).
+   - Common choice: $w = 0$ and $b = 0$.  
+2. Adjust $w$ and $b$ iteratively to reduce $J(w, b)$.  
+3. Continue updating until $J(w, b)$ reaches or is near its minimum.  
+
+=== Surface Plot Example
+Supose $J(w, b)$ represented as a surface plot:  
+- $w$ and $b$ define the horizontal axes.  
+- $J(w, b)$ defines the vertical axis (height of the surface).  
+
+=== Analogy: Descending a Hill
+1. *Starting Point:*  
+   Supose standing on a hill. The height corresponds to $J(w, b)$ at that point.  
+2. *Choosing the Direction:*  
+   - Spin 360 degrees and determine the direction of steepest descent.  
+   - Take a small step in that direction.  
+3. *Repeat:*  
+   - After each step, reassess and take another step downhill.  
+   - Continue until you reach a local minimum.
+
+=== Local Minima
+- *Definition:* A local minimum is a point where $J(w, b)$ is lower than at any nearby point.  
+- *Behavior:*  
+  - The algorithm converges to the local minimum nearest to the starting point.  
+  - Different starting points may lead to different local minima.
+  
+== The Role of Learning Rate
+
+=== Understanding Alpha (Learning Rate)
+- Alpha, the learning rate, significantly impacts gradient descent's efficiency.
+- Poor choice of alpha may lead to:
+  - Slow convergence
+  - Divergence (failure to reach the minimum)
+
+=== Gradient Descent Update Rule
+- The update rule:
+  $W -> W - alpha {partial J(W)}/{partial W}$
+- Alpha controls the step size in each iteration.
+
+=== Small Learning Rate
+- Case: Alpha is very small (e.g., $alpha = 0.0000001$)
+  - The derivative term is multiplied by a tiny number.
+  - Results in *very small steps* toward the minimum.
+  - Many iterations are needed, making the process inefficient.
+- Graphically:
+  - Slow descent along the curve $J(W)$ with minimal progress.
+
+=== Large Learning Rate
+- Case: Alpha is too large
+  - Steps become *too big*, overshooting the minimum.
+  - May lead to divergence:
+    - Updates can cause $W$ to oscillate or move away from the minimum.
+- Example:
+  - Starting near the minimum but overshooting due to a large step size.
+  - Cost $J(W)$ may increase instead of decrease.
+
+== At the Local Minimum
+- When $W$ reaches a local minimum:
+  - The slope of the tangent line is zero:
+    ${partial J(W)}/{partial W} = 0$
+  - Update step becomes:
+    $W -> W - alpha dot 0 = W$
+  - Gradient descent stops changing $W$:
+    - Parameters remain at the minimum.
+
+== Automatically Smaller Steps Near Minimum
+- As $W$ approaches the local minimum:
+  - The derivative ${partial J(W)}/{partial W}$ decreases.
+  - Step size automatically becomes smaller.
+  - Gradient descent converges even with a fixed $alpha$.
+  
+== Gradient descent for linear regression
+Train a linear regression model using the squared error cost function and gradient descent.
+
+=== Key Components
+=== Linear Regression Model
+The hypothesis function:
+$f(x; w, b) = w x + b$
+
+=== Squared Error Cost Function
+The cost function:
+
+#figure(
+  image("./images/2024-11-21-cost-function-gradient.png"),
+)
+
+=== Gradient Descent Algorithm
+Update rules:
+- $w := w - alpha {partial J(w, b)}/{partial w}$
+- $b := b - alpha {partial J(w, b)}/{partial b}$
+
+=== Properties of the Cost Function
+==== Convexity
+- The squared error cost function is *convex*, meaning it has a single global minimum.
+- Gradient descent will always converge to the global minimum for appropriately chosen $alpha$.
