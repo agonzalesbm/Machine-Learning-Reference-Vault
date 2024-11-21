@@ -294,45 +294,45 @@ Clustering is just one type of unsupervised learning. Other approaches explore d
     - *Output targets*: e.g., price of a house.
   - Outputs the *function* (model) $f$.
 
-=== Key Concepts
+==== Key Concepts
 - *Function ($f$)*: Represents the model, maps input x to prediction y-hat.
   - y-hat: Estimated or predicted value.
   - y: Actual true value from the dataset.
 - *Prediction (y-hat)*: Output of the model for given input x.
 
-=== Model Representation
+==== Model Representation
 - Function f is often linear for simplicity:
   - $f(x) = w x + b$
     - *w*: Weight (slope of the line).
     - *b*: Bias (intercept).
   - Also written as $f_w,b(x)$ to explicitly denote parameters.
 
-==== Visualizing Data and Predictions
+===== Visualizing Data and Predictions
 - Input feature $x$ on the horizontal axis.
 - Output target $y$ on the vertical axis.
 - Training set points plotted; function $f(x)$ fits a line through the data.
 
-=== Why Linear Functions?
+==== Why Linear Functions?
 - Linear functions are simple and foundational.
 - They help transition to more complex, non-linear models (e.g., curves or parabolas).
 
-=== Univariate Linear Regression
+==== Univariate Linear Regression
 - One variable (input feature): *size of the house*.
 - $f(x) = w x + b$:
   - *Linear regression*: Fits a straight line to data.
   - *Univariate*: Single input variable.
   - Example: Predicting house price based on size.
 
-=== Multivariate Linear Regression (Future Scope)
+==== Multivariate Linear Regression (Future Scope)
 - Incorporates multiple input variables:
   - E.g., size, number of bedrooms, location, etc.
   - Builds on univariate concepts.
 
-== Cost Function Formula
+=== Cost Function Formula
 - The *cost function* is a key step in implementing linear regression.
 - It evaluates how well the model is performing and provides a basis to improve it.
 
-=== Model 
+==== Model 
 - Training set contains:
   - *Input features*: x
   - *Output targets*: y
@@ -349,7 +349,7 @@ Clustering is just one type of unsupervised learning. Other approaches explore d
     - w: weight (determines slope of the line)
     - b: bias (y-intercept of the line)
 
-=== Understanding Parameters
+==== Understanding Parameters
 - Different values of w and b generate different lines.
   - Example 1: w = 0, b = 1.5
     - Horizontal line, f(x) = 1.5
@@ -359,17 +359,17 @@ Clustering is just one type of unsupervised learning. Other approaches explore d
     - Line intersects y-axis at 1 with slope = 0.5
 - Goal: Adjust w and b to fit the training set well.
 
-=== Measuring Fit
+==== Measuring Fit
 - Training examples: (x^i, y^i)
   - *Prediction*: $y^hat = f_w,b(x^i) = w * x^i + b$
   - Aim: Minimize difference between y^hat and y^i for all examples.
 
-== Constructing the Cost Function
-=== Error Calculation
+=== Constructing the Cost Function
+==== Error Calculation
 1. Compute the error: y^hat - y (difference between prediction and target).
 2. Square the error to ensure all values are positive.
 
-=== Squared error cost function
+==== Squared error cost function
 - Sum of squared errors for all examples:  
 
 #figure(
@@ -379,5 +379,141 @@ Clustering is just one type of unsupervised learning. Other approaches explore d
   ]
 )
 
-== Intuition Behind J(w, b)
+=== Intuition Behind J(w, b)
 - J(w, b) measures how far predictions are from actual targets.
+
+== Cost function intuition
+- In this section, we aim to build intuition about the cost function in linear regression.
+- The goal is to find the best parameters $w$ and $b$ for the model by minimizing the cost function $J(w, b)$.
+
+=== The Model
+- The linear regression model is defined as:
+  $f(w, b)(x) = w * x + b$
+  - Parameters: $w$ (weight) and $b$ (bias).
+  - Different choices for $w$ and $b$ yield different straight-line fits to the data.
+
+=== The Cost Function
+- The cost function $J(w, b)$ measures the difference between:
+  - The model's predictions, $f(w, b)(x)$.
+  - The true output values, $y$.
+- Objective: Minimize $J(w, b)$ to find the best fit for the training data.
+
+==== Simplified Case: Only $w$
+- To better visualize the cost function:
+  - Assume $b = 0$.
+  - The model becomes: $f(w)(x) = w * x$.
+  - Cost function simplifies to $J(w)$.
+- Goal: Minimize $J(w)$ for the single parameter $w$.
+
+=== Relationship Between $f(w)$ and $J(w)$
+- Left graph: $f(w)(x)$, the model's predictions.
+  - Horizontal axis: Input feature $x$.
+  - Vertical axis: Output value $y$.
+- Right graph: $J(w)$, the cost function.
+  - Horizontal axis: Parameter $w$.
+  - Vertical axis: Cost $J$.
+
+=== Example: Training Data Points
+- Training set: Points $(1, 1), (2, 2), (3, 3)$.
+
+==== Case 1: $w = 1$
+- $f(w)(x)$ is a line with slope 1.
+- For each training example, $f(w)(x) = y$.
+- Cost $J(1) = 0$ (perfect fit).
+- Graph:
+  - Left: Line passes through all data points.
+  - Right: Point at $(w = 1, J(w) = 0)$.
+
+==== Case 2: $w = 0.5$
+- $f(w)(x)$ is a line with slope 0.5.
+- Calculate squared errors:
+  - Example 1: $(0.5 - 1)^2$.
+  - Example 2: $(1 - 2)^2$.
+  - Example 3: $(1.5 - 3)^2$.
+- Cost $J(0.5) = 0.58$.
+- Graph:
+  - Left: Line deviates slightly from points.
+  - Right: Point at $(w = 0.5, J(w) = 0.58)$.
+
+==== Case 3: $w = 0$
+- $f(w)(x)$ is a horizontal line on the x-axis.
+- Cost $J(0) = 2.33$.
+- Graph:
+  - Left: Line far from points.
+  - Right: Point at $(w = 0, J(w) = 2.33)$.
+
+==== Case 4: $w = -0.5$
+- $f(w)(x)$ is a downward-sloping line.
+- Cost $J(-0.5) = 5.25$.
+- Graph:
+  - Left: Line farthest from points.
+  - Right: Point at $(w = -0.5, J(w) = 5.25)$.
+
+=== Observations
+- Each $w$ value corresponds to:
+  - A line on the $f(w)(x)$ graph.
+  - A point on the $J(w)$ graph.
+- The cost function $J(w)$ is minimized when $w = 1$ (best fit).
+
+=== General Case: $w$ and $b$
+- For models with both $w$ and $b$, the cost function $J(w, b)$ becomes more complex.
+- Goal: Minimize $J(w, b)$.
+- Visualization involves 3D plots for both parameters.
+
+== Visualizing the cost function
+=== Key Components
+- *Model*: A linear regression model.
+- *Parameters*: $w$ and $b$.
+- *Cost Function*: $J(w, b)$.
+- *Goal*: Minimize $J(w, b)$ over $w$ and $b$.
+
+=== Revisiting Previous Visualization
+- In the last video, $b$ was set to 0 to simplify the visualization of $J(w)$.
+- We observed that $J(w)$ had a U-shaped curve (a "soup bowl" analogy).
+
+=== Expanding to Two Parameters
+- When both $w$ and $b$ are considered, the cost function $J(w, b)$ extends to three dimensions.
+- The 3D surface of $J(w, b)$ resembles:
+  - A soup bowl.
+  - A curved dinner plate.
+  - A hammock.
+  
+#figure(
+  image("./images/2024-11-3d-model.png"),
+  caption: [
+    3D model.
+  ]
+)
+
+=== Characteristics of the 3D Surface
+- Axes represent $w$ and $b$.
+- The height above any $(w, b)$ point represents the value of $J(w, b)$.
+
+==== Example
+- Suppose $w = 0.06$ and $b = 50$.
+- The model function is $f(x) = 0.06 \cdot x + 50$, which underestimates housing prices.
+- This choice corresponds to a specific point on the 3D surface of $J(w, b)$.
+
+=== Contour Plots
+- Contour plots provide an alternative visualization of $J(w, b)$ in 2D.
+- Analogous to topographical maps, each ellipse (or oval) represents points with the same $J(w, b)$ value.
+
+=== Constructing Contour Plots
+- Start with the 3D surface.
+- Slice the surface horizontally at specific heights.
+- Each slice becomes an ellipse in the contour plot.
+
+=== Features of Contour Plots
+- The axes are $w$ (horizontal) and $b$ (vertical).
+- The center of concentric ovals represents the minimum of $J(w, b)$.
+
+=== Intuition
+- Imagine the 3D bowl projected onto a 2D plane.
+- The contour plot shows "height" information via ellipses.
+
+=== Visualization Insights
+- The bottom of the bowl (center of the smallest oval) is the minimum of $J(w, b)$.
+- Different points on the contour plot correspond to specific linear functions $f(x)$, each with varying performance.
+
+==== Example
+- Points with equal $J(w, b)$ in the contour plot correspond to models with similar predictive quality.
