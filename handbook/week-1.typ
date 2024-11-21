@@ -286,3 +286,44 @@ Businesses use clustering to categorize customers into distinct market segments.
 
 === Applications Beyond Clustering  
 Clustering is just one type of unsupervised learning. Other approaches explore different structures in the data, such as dimensionality reduction or anomaly detection, but all share the same unsupervised principle: discovering insights without predefined labels.
+
+== Linear regression
+- Supervised learning involves training a model with a *training set*.
+  - Training set includes:
+    - *Input features*: e.g., size of a house.
+    - *Output targets*: e.g., price of a house.
+  - Outputs the *function* (model) $f$.
+
+=== Key Concepts
+- *Function ($f$)*: Represents the model, maps input x to prediction y-hat.
+  - y-hat: Estimated or predicted value.
+  - y: Actual true value from the dataset.
+- *Prediction (y-hat)*: Output of the model for given input x.
+
+=== Model Representation
+- Function f is often linear for simplicity:
+  - $f(x) = w x + b$
+    - *w*: Weight (slope of the line).
+    - *b*: Bias (intercept).
+  - Also written as $f_w,b(x)$ to explicitly denote parameters.
+
+==== Visualizing Data and Predictions
+- Input feature $x$ on the horizontal axis.
+- Output target $y$ on the vertical axis.
+- Training set points plotted; function $f(x)$ fits a line through the data.
+
+=== Why Linear Functions?
+- Linear functions are simple and foundational.
+- They help transition to more complex, non-linear models (e.g., curves or parabolas).
+
+=== Univariate Linear Regression
+- One variable (input feature): *size of the house*.
+- $f(x) = w x + b$:
+  - *Linear regression*: Fits a straight line to data.
+  - *Univariate*: Single input variable.
+  - Example: Predicting house price based on size.
+
+=== Multivariate Linear Regression (Future Scope)
+- Incorporates multiple input variables:
+  - E.g., size, number of bedrooms, location, etc.
+  - Builds on univariate concepts.
