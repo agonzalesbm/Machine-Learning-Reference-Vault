@@ -327,3 +327,57 @@ Clustering is just one type of unsupervised learning. Other approaches explore d
 - Incorporates multiple input variables:
   - E.g., size, number of bedrooms, location, etc.
   - Builds on univariate concepts.
+
+== Cost Function Formula
+- The *cost function* is a key step in implementing linear regression.
+- It evaluates how well the model is performing and provides a basis to improve it.
+
+=== Model 
+- Training set contains:
+  - *Input features*: x
+  - *Output targets*: y
+- Linear model
+
+#figure(
+  image("./images/2024-11-21-model-formula.png"),
+  caption: [
+    Linear model formula.
+  ]
+)
+
+  - *Parameters* (adjustable): w, b
+    - w: weight (determines slope of the line)
+    - b: bias (y-intercept of the line)
+
+=== Understanding Parameters
+- Different values of w and b generate different lines.
+  - Example 1: w = 0, b = 1.5
+    - Horizontal line, f(x) = 1.5
+  - Example 2: w = 0.5, b = 0
+    - Line with slope = 0.5
+  - Example 3: w = 0.5, b = 1
+    - Line intersects y-axis at 1 with slope = 0.5
+- Goal: Adjust w and b to fit the training set well.
+
+=== Measuring Fit
+- Training examples: (x^i, y^i)
+  - *Prediction*: $y^hat = f_w,b(x^i) = w * x^i + b$
+  - Aim: Minimize difference between y^hat and y^i for all examples.
+
+== Constructing the Cost Function
+=== Error Calculation
+1. Compute the error: y^hat - y (difference between prediction and target).
+2. Square the error to ensure all values are positive.
+
+=== Squared error cost function
+- Sum of squared errors for all examples:  
+
+#figure(
+  image("./images/2024-11-21-summing-errors-training.png"),
+  caption: [
+    Errors across training set.
+  ]
+)
+
+== Intuition Behind J(w, b)
+- J(w, b) measures how far predictions are from actual targets.
