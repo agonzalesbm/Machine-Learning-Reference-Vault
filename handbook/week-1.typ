@@ -229,7 +229,7 @@ Regression is a supervised learning algorithm that predicts continuous values fr
 == Classification: Predicting Categories
 Classification is a supervised learning algorithm that predicts categories or classes from a small, finite set of possibilities.
 
-=== Key Characteristics 
+=== Key Characteristics
 1. *Discrete Outputs*
    - Predicts a limited number of categories (e.g., 'benign' vs. 'malignant' or 'cat' vs. 'dog').
    - Categories can be non-numeric (e.g., names) or numeric (e.g., 0, 1, 2).
@@ -260,7 +260,7 @@ Imagine a dataset containing tumor size and patient age. Without labels indicati
 
 Clustering involves grouping similar data points together based on patterns or shared characteristics. This type of unsupervised learning is widely used in various applications.
 
-*Example 1: Google News* 
+*Example 1: Google News*
 Google News uses clustering to group related news articles.
 - *Process*:
     - The algorithm analyzes articles and identifies recurring keywords like "panda," "twins," or "zoo."
@@ -332,7 +332,7 @@ Clustering is just one type of unsupervised learning. Other approaches explore d
 - The *cost function* is a key step in implementing linear regression.
 - It evaluates how well the model is performing and provides a basis to improve it.
 
-==== Model 
+==== Model
 - Training set contains:
   - *Input features*: x
   - *Output targets*: y
@@ -477,7 +477,7 @@ Clustering is just one type of unsupervised learning. Other approaches explore d
   - A soup bowl.
   - A curved dinner plate.
   - A hammock.
-  
+
 #figure(
   image("./images/2024-11-3d-model.png"),
   caption: [
@@ -547,7 +547,7 @@ Supose $J(w, b)$ represented as a surface plot:
 2. *Choosing the Direction:*
    - Spin 360 degrees and determine the direction of steepest descent.
    - Take a small step in that direction.
-3. *Repeat:*  
+3. *Repeat:*
    - After each step, reassess and take another step downhill.
    - Continue until you reach a local minimum.
 
@@ -555,7 +555,7 @@ Supose $J(w, b)$ represented as a surface plot:
 
 === Local Minima
 - *Definition:* A local minimum is a point where $J(w, b)$ is lower than at any nearby point.
-- *Behavior:*  
+- *Behavior:*
   - The algorithm converges to the local minimum nearest to the starting point.
   - Different starting points may lead to different local minima.
 
@@ -563,7 +563,7 @@ Supose $J(w, b)$ represented as a surface plot:
 1. Start in one valley: Gradient descent will lead to the local minimum of that valley.
 2. Start in another valley: Gradient descent will find the local minimum of this second valley.
    - This demonstrates the dependency on the starting point.
-  
+
 === Gradient Descent Algorithm
 
 #figure(
@@ -688,7 +688,7 @@ Supose $J(w, b)$ represented as a surface plot:
   - The derivative ${partial J(W)}/{partial W}$ decreases.
   - Step size automatically becomes smaller.
   - Gradient descent converges even with a fixed $alpha$.
-  
+
 == Gradient descent for linear regression
 Train a linear regression model using the squared error cost function and gradient descent.
 
