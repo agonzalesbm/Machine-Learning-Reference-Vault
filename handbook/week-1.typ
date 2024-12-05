@@ -808,3 +808,43 @@ Update rules:
       w[j] = w[j] - alpha * d[j]
   ```
 )
+
+= Gradient descent for multiple linear Regression
+
+#figure(
+  image("images/2024-12-05-gradiant-descent.png"),
+)
+
+=== Review of Multiple Linear Regression
+- Parameters:
+  - $w = \[w_1, w_2, ..., w_n\]$: a vector of length $n$.
+  - $b$: a scalar parameter.
+- Model in Vector Notation:
+  - $f_{w,b}(x) = w \cdot x + b$, where $\cdot$ is the dot product.
+- Cost Function:
+  - $J(w, b)$ is now defined as a function of the parameter vector $w$ and scalar $b$.
+
+=== Gradient Descent
+- Update Rules:
+  - $w_j := w_j - alpha {partial J}/{partial w_j}$ for $j = 1, ..., n$.
+  - $b := b - alpha {partial J}/{partial b}$.
+- For $n$ features:
+  - Update each $w_j$ (for $j = 1$ to $n$) based on the gradient of $J$ with respect to $w_j$.
+  - Update $b$ similarly as in the univariate case.
+
+=== Vectorized Implementation
+- Efficient updates using vectorized operations:
+  - $w := w - alpha \cdot nabla_w J$
+  - $b := b - alpha \cdot {partial J}/{partial b}$.
+
+=== The Normal Equation
+- An alternative to gradient descent:
+  - Solves for $w$ and $b$ directly using advanced linear algebra.
+  - Advantages:
+    - No iterations required.
+  - Disadvantages:
+    - Limited to linear regression.
+    - Computationally expensive for large $n$.
+- Practical Use:
+  - Rarely implemented manually.
+  - Often used as a backend in some machine learning libraries.
