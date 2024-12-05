@@ -774,3 +774,37 @@ Update rules:
 - *Univariate Regression*: Single feature.
 - *Multiple Linear Regression*: Multiple features.
   - Note: Multivariate regression refers to something else not covered here.
+
+= Vectorization
+
+=== Example: Dot Product
+- Suppose $w$ and $x$ are vectors with three numbers, and $b$ is a scalar:
+  - $n = 3$, $w = \[w_1, w_2, w_3\]$, $x = \[x_1, x_2, x_3\]$.
+- *Without Vectorization*:
+  - Compute $f = w_1x_1 + w_2x_2 + w_3x_3 + b$ using a loop.
+- *With Vectorization*:
+  - Use the dot product: $f = w \cdot x + b$.
+  - In Python: `f = np.dot(w, x) + b`.
+
+=== Benefits of Vectorization
+1. *Conciseness*: Code becomes shorter and easier to maintain.
+2. *Efficiency*: Runs faster by leveraging parallel hardware.
+
+=== Behind the Scenes
+- *Non-Vectorized Implementation*:
+  - Operations are sequential, one calculation at a time.
+- *Vectorized Implementation*:
+  - Parallel processing computes all operations (e.g., multiplications and additions) in a single step.
+
+=== Practical Impact
+- For large $n$ (e.g., thousands of features), vectorization significantly reduces computation time.
+- Enables machine learning algorithms to scale effectively to large datasets.
+
+=== Example: Gradient Descent Update
+- *Non-Vectorized*:
+#codeBlock(
+  ```python
+  for j in range(n):
+      w[j] = w[j] - alpha * d[j]
+  ```
+)
