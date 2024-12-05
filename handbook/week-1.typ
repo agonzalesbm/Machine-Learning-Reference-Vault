@@ -713,3 +713,64 @@ Update rules:
 ==== Convexity
 - The squared error cost function is *convex*, meaning it has a single global minimum.
 - Gradient descent will always converge to the global minimum for appropriately chosen $alpha$.
+
+// week 2
+
+= Multiple features
+
+#figure(
+  image("images/2024-12-05-multiple-features.png"),
+)
+
+=== Single vs. Multiple Features
+- *Original Linear Regression*:
+  - A single feature $x$ (e.g., house size) predicts $y$ (e.g., house price).
+  - Model: $f_{w,b}(x) = w x + b$.
+- *Multiple Features*:
+  - Predict using several features:
+    - $x_1$: size of the house.
+    - $x_2$: number of bedrooms.
+    - $x_3$: number of floors.
+    - $x_4$: age of the home (years).
+
+=== Notation for Multiple Features
+- *Feature Representation*:
+  - $x_j$: the $j$-th feature.
+  - $n$: total number of features (e.g., $n = 4$).
+- *Training Examples*:
+  - $x^{(i)}$: list (or vector) of features for the $i$-th example.
+  - Example: $x^{(2)} = [1416, 3, 2, 40]$.
+  - $x^{(i)}_j$: value of the $j$-th feature for the $i$-th example.
+    - E.g., $x^{(2)}_3 = 2$ (number of floors in the second example).
+
+=== Model for Multiple Features
+- *General Model*:
+  - $f_{w,b}(x) = w_1x_1 + w_2x_2 + w_3x_3 + w_4x_4 + b$.
+- *Example*:
+  - Housing price prediction:
+    $f_{w,b}(x) = 0.1x_1 + 4x_2 + 10x_3 - 2x_4 + 80$.
+  - Interpretation:
+    - $b = 80$: base price ($80,000$).
+    - $0.1$: price increases by $100$ for every additional square foot.
+    - $4$: price increases by $4,000$ per bedroom.
+    - $10$: price increases by $10,000$ per floor.
+    - $-2$: price decreases by $2,000$ per year of age.
+
+=== Vectorized Notation
+- *Parameters and Features*:
+  - $w$: vector of parameters $\[w_1, w_2, ..., w_n\]$.
+  - $x$: vector of features $\[x_1, x_2, ..., x_n\]$.
+  - $b$: single number (not a vector).
+- *Model (Compact Form)*:
+  - $f_{w,b}(x) = w \cdot x + b$, where $\cdot$ denotes the dot product.
+
+=== Dot Product
+- *Definition*:
+  - $w \cdot x = w_1x_1 + w_2x_2 + ... + w_n x_n$.
+  - Equivalent to $f_{w,b}(x) = w \cdot x + b$.
+- *Purpose*: Simplifies notation and implementation.
+
+=== Types of Regression
+- *Univariate Regression*: Single feature.
+- *Multiple Linear Regression*: Multiple features.
+  - Note: Multivariate regression refers to something else not covered here.
