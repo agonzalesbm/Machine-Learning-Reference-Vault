@@ -1021,3 +1021,38 @@ Predicting one of a small set of categories (e.g., spam or not spam).
 - Logistic regression addresses the limitations of linear regression for classification:
   - Outputs are always in $[0, 1]$, representing probabilities.
   - Designed specifically for binary classification.
+
+= Logistic regression
+
+#figure(
+  image("images/2024-12-06-sigmoid-function.png")
+)
+
+- Logistic regression is one of the most widely used classification algorithms.
+- It outputs a probability that the label $y$ belongs to the positive class ($y = 1$).
+
+=== The Sigmoid Function
+- *Definition*: A mathematical function that maps any input $z$ to a value between $0$ and $1$.
+- Formula: $g(z) = {1}/{1 + e^{-z}}$, where $e$ is Euler’s number ($approx 2.7$).
+- Behavior:
+  - At $z = 0$, $g(z) = 0.5$.
+
+=== Logistic Regression Model
+1. *Model Definition*:
+   - Input: $f(x) = g(w \cdot x + b)$, where:
+     - $w \cdot x$ is the dot product of parameters $w$ and features $x$.
+     - $b$ is the bias term.
+     - $g$ is the sigmoid function.
+   - Output: A probability between $0$ and $1$.
+2. *Interpretation*:
+   - $f(x)$ represents $P(y = 1 \mid x)$, the probability that $y = 1$ given input $x$.
+   - If $P(y = 1 \mid x) = 0.7$, there is a $70\%$ chance the label is $1$ and $30\%$ chance it is $0$.
+
+=== Key Properties of Logistic Regression
+- *Outputs*: Always between $0$ and $1$.
+- *Prediction*: Threshold-based:
+  - Predict $y = 1$ if $P(y = 1 \mid x) \geq 0.5$.
+  - Predict $y = 0$ if $P(y = 1 \mid x) < 0.5$.
+
+=== Practical Applications
+- Widely used in applications like Internet advertising, where it determines probabilities and outputs binary predictions.
