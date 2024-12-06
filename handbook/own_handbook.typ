@@ -977,6 +977,8 @@ Update rules:
   - Measure model performance with different feature combinations.
   - Later courses explore systematic methods for feature selection.
 
+// week 3
+
 = Motivations
 
 #figure(
@@ -1143,3 +1145,25 @@ Convexity:
     - If $y = 1$: $L = -log(f(x))$.
     - If $y = 0$: $L = -log(1 - f(x))$.
   - The simplified formula combines both cases into one expression.
+
+= Gradient descent implementation
+
+#figure(
+  image("images/2024-12-06-gradient-descent-implementation.png")
+)
+
+- Goal: Minimize the cost function $J(w, b)$ to find the optimal parameters $w$ and $b$.
+- Prediction: After training, the model can estimate $P(y = 1 \mid x)$ for a new input $x$.
+
+=== Key Insights
+- The gradient descent equations look similar for linear and logistic regression, but the difference lies in $f(x)$:
+  - Linear regression: $f(x) = w \cdot x + b$.
+  - Logistic regression: $f(x) = frac{1}{1 + e^{-(w \cdot x + b)}}$.
+- Gradient descent ensures convergence if the cost function is convex.
+
+=== Enhancing Gradient Descent
+- *Feature Scaling*:
+  - Scaling features (e.g., to $[-1, 1]$) speeds up convergence, just as in linear regression.
+- *Vectorized Implementation*:
+  - Use vectorized operations to compute updates efficiently.
+  - Examples provided in optional labs.
