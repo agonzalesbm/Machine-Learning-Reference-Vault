@@ -875,3 +875,43 @@ Update rules:
   - Very large ranges (e.g., $[-100, +100]$).
   - Very small ranges (e.g., $[-0.001, +0.001]$).
   - Moderate ranges (e.g., $[98.6, 105]$ degrees Fahrenheit).
+
+= Choosing the learning rate
+
+#figure(
+  image("images/2024-12-05-choosing-learninig-rate.png"),
+)
+
+=== Importance of Learning Rate
+- The learning rate alpha affects:
+  - *Convergence speed*: Too small, and training is slow.
+  - *Stability*: Too large, and training may not converge.
+- Signs of incorrect alpha:
+  - Cost $J$ oscillates or increases: alpha might be too large.
+  - Cost $J$ consistently decreases: alpha is likely appropriate.
+
+=== Debugging Gradient Descent
+1. *Cost Goes Up and Down*:
+   - Overshooting the minimum due to a large alpha.
+   - Fix: Use a smaller alpha.
+2. *Cost Consistently Increases*:
+   - Possible bug: Ensure update is $w_1 := w_1 - alpha {partial J}/{partial w_1}$.
+
+=== Strategy for Choosing alpha
+- *Testing a Range of Values*:
+  - Start with a small value, e.g., $alpha = 0.001$.
+  - Increase alpha progressively (e.g., $3$): $0.001$, $0.003$, $0.01$, $0.03$, etc.
+- *Optimal alpha*:
+  - Choose the largest alpha that results in a steady decrease of $J$.
+
+=== Practical Tips
+- *Debugging Step*: Use a very small alpha temporarily to ensure $J$ decreases every iteration.
+- *Efficient Training*: Avoid overly small alpha, as it slows convergence.
+- *Visualization*:
+  - Plot $J$ against iterations for different alpha values to observe trends.
+
+=== Upcoming Lab
+- Explore:
+  - Feature scaling in code.
+  - Impact of different alpha values on model training.
+- Gain hands-on experience with alpha selection to develop intuition.
