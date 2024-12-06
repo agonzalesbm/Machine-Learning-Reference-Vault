@@ -315,7 +315,6 @@ Clustering is just one type of unsupervised learning. Other approaches explore d
 ==== Why Linear Functions?
 - Linear functions are simple and foundational.
 - They help transition to more complex, non-linear models (e.g., curves or parabolas).
-
 ==== Univariate Linear Regression
 - One variable (input feature): *size of the house*.
 - $f(x) = w x + b$:
@@ -977,3 +976,48 @@ Update rules:
 - How to decide:
   - Measure model performance with different feature combinations.
   - Later courses explore systematic methods for feature selection.
+
+= Motivations
+
+#figure(
+  image("images/2024-12-06-motivations.png")
+)
+
+== Classification
+Predicting one of a small set of categories (e.g., spam or not spam).
+- Contrast with regression:
+  - Regression predicts a continuous value.
+  - Classification predicts discrete categories.
+
+=== Examples of Classification Problems
+1. Email spam detection:
+   - Output: No/Yes (0/1).
+2. Fraud detection in financial transactions:
+   - Output: No/Yes (0/1).
+3. Tumor classification:
+   - Output: Benign/Malignant (0/1).
+
+=== Binary Classification
+- *Definition*: Output variable $y$ has only two possible values.
+- Terminology:
+  - Classes: Categories being predicted (e.g., spam vs. not spam).
+  - Labels:
+    - Negative class: $y = 0$ (e.g., not spam, benign).
+    - Positive class: $y = 1$ (e.g., spam, malignant).
+- Note: Negative/Positive does not imply bad/good; it indicates absence/presence of the feature.
+
+=== Linear Regression for Classification
+- Attempting to use linear regression:
+  1. Fit a straight line to the data.
+  2. Apply a threshold (e.g., $0.5$) to predict:
+     - $y = 0$ if $f(x) < 0.5$.
+     - $y = 1$ if $f(x) \geq 0.5$.
+- Limitations:
+  - Sensitive to outliers:
+    - A single extreme data point can shift the decision boundary, leading to poor predictions.
+  - Outputs are not confined to $[0, 1]$, making it unsuitable for classification.
+
+=== Need for Logistic Regression
+- Logistic regression addresses the limitations of linear regression for classification:
+  - Outputs are always in $[0, 1]$, representing probabilities.
+  - Designed specifically for binary classification.
