@@ -1258,3 +1258,33 @@ Convexity:
      - Risk: Discarding useful features may limit model performance.
    - Advanced Approaches:
      - Algorithms for automatic feature selection.
+
+= Cost function with regularization
+
+#figure(
+  image("images/2024-12-06-regularization.png")
+)
+
+- Regularization modifies the cost function to penalize large parameter values.
+- This discourages overly complex models and reduces overfitting.
+
+=== How Regularization Works
+- Penalizes large values of $w_j$, encouraging smaller parameters.
+- Smaller $w_j$ reduces the influence of less important features, leading to a simpler, smoother model.
+- Helps the model generalize better to unseen data.
+
+=== Effects of lambda
+1. *$lambda = 0$ (No Regularization)*:
+   - Regularization term is ignored.
+   - The model overfits, fitting a highly complex and wiggly curve.
+2. *$lambda -> infinity$ (Very Large)*:
+   - The regularization term dominates.
+   - All $w_j \to 0$, resulting in an underfit (e.g., a flat line).
+3. *Optimal lambda*:
+   - Balances fitting the training data and keeping $w_j$ small.
+   - Produces a model that generalizes well to new data.
+
+=== Implementation Details
+* Regularization is typically applied to $w_1, w_2, ..., w_n$.
+* The bias parameter $b$ is usually excluded from regularization:
+   - Regularizing $b$ has minimal practical impact and is often omitted.
