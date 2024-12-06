@@ -1081,3 +1081,49 @@ Predicting one of a small set of categories (e.g., spam or not spam).
   - Example: $z = w_1 x_1 + w_2 x_2 + w_3 x_1^2 + w_4 x_1 x_2 + w_5 x_2^2$.
   - Possible boundaries: ellipses, intricate shapes, or more complex regions.
 - Logistic regression can fit complex data with appropriate features.
+
+= Cost function for logistic regression
+
+- The cost function measures how well a logistic regression model fits the training data.
+- Logistic regression requires a cost function that is convex to ensure reliable optimization with gradient descent.
+
+=== Why Not Use Squared Error for Logistic Regression?
+- Squared error cost function:
+  - Works well for linear regression, producing a convex surface.
+  - For logistic regression, results in a non-convex surface with many local minima.
+  - Gradient descent may get stuck in local minima, failing to find optimal parameters.
+- Solution: Define a new loss function specific to logistic regression.
+
+=== Loss Function for Logistic Regression
+1. Definition:
+   - For $y = 1$: ${L o s s} = -log(f(x))$.
+   - For $y = 0$: ${L o s s} = -log(1 - f(x))$.
+   - $f(x) = {1}/{1 + e^{-z}}$, where $z = w \cdot x + b$.
+2. Properties:
+   - Encourages correct predictions:
+     - When $y = 1$, small loss for $f(x) approx 1$.
+     - When $y = 0$, small loss for $f(x) approx 0$.
+   - Penalizes incorrect predictions:
+     - Loss increases as $f(x)$ moves away from the true label.
+
+=== Visualizing the Loss Function
+1. *For $y = 1$*:
+   - Loss approaches $0$ as $f(x) \to 1$.
+   - Loss grows rapidly as $f(x) \to 0$.
+2. *For $y = 0$*:
+   - Loss approaches $0$ as $f(x) \to 0$.
+   - Loss grows rapidly as $f(x) \to 1$.
+
+=== Cost Function for Logistic Regression
+
+#figure(
+  image("images/2024-12-06-cost-logistic-regression.png")
+)
+
+Convexity:
+   - With the logistic loss, $J(w, b)$ is convex.
+   - Ensures gradient descent converges reliably to the global minimum.
+
+=== Benefits of Logistic Loss
+- Produces a smooth, convex cost surface without local minima.
+- Ensures robust parameter optimization with gradient descent.
