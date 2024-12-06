@@ -910,8 +910,32 @@ Update rules:
 - *Visualization*:
   - Plot $J$ against iterations for different alpha values to observe trends.
 
-=== Upcoming Lab
-- Explore:
-  - Feature scaling in code.
-  - Impact of different alpha values on model training.
-- Gain hands-on experience with alpha selection to develop intuition.
+= Feature engineering
+
+#figure(
+  image("images/2024-12-05-feature-engineering.png")
+)
+
+=== What is Feature Engineering?
+- *Definition*: Using domain knowledge to create new features by transforming or combining existing ones.
+- Benefits:
+  - Enhances the learning algorithm’s ability to capture relationships in the data.
+  - Provides a better representation of the problem for the model.
+
+=== Importance of Features
+- The choice of features significantly impacts a learning algorithm’s success.
+- *Feature engineering*: Creating or modifying features to improve the model's performance.
+
+=== Example: Predicting House Prices
+- Original Features:
+  - $x_1$: Width (frontage) of the lot.
+  - $x_2$: Depth of the lot.
+- Initial Model:
+  - $f_{w,b}(x) = w_1x_1 + w_2x_2 + b$.
+  - Treats frontage and depth as separate predictors.
+
+=== Creating a New Feature
+- Observation: Area ($x_3$) = $x_1 \cdot x_2$ might better predict house prices.
+- Updated Model:
+  - $f_{w,b}(x) = w_1x_1 + w_2x_2 + w_3x_3 + b$.
+  - $w_3$ determines how much area contributes to the prediction, alongside frontage and depth.
