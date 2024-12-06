@@ -1056,3 +1056,28 @@ Predicting one of a small set of categories (e.g., spam or not spam).
 
 === Practical Applications
 - Widely used in applications like Internet advertising, where it determines probabilities and outputs binary predictions.
+
+= Decision boundary
+
+=== Threshold-Based Predictions
+- To predict $y$:
+  - If $f(x) \geq 0.5$, predict $y = 1$.
+  - If $f(x) < 0.5$, predict $y = 0$.
+- Since $g(z) \geq 0.5$ when $z \geq 0$, the model predicts:
+  - $y = 1$ when $w \cdot x + b \geq 0$.
+  - $y = 0$ otherwise.
+
+=== Non-Linear Decision Boundaries
+- By using polynomial features, the decision boundary can become non-linear.
+- *Example with Polynomial Features*:
+  - $z = w_1 x_1^2 + w_2 x_2^2 + b$.
+  - If $w_1 = 1$, $w_2 = 1$, $b = -1$, the decision boundary is $x_1^2 + x_2^2 = 1$ (a circle).
+  - Predictions:
+    - $y = 1$ outside the circle.
+    - $y = 0$ inside the circle.
+
+=== More Complex Boundaries
+- Higher-order polynomial features allow for more complex boundaries:
+  - Example: $z = w_1 x_1 + w_2 x_2 + w_3 x_1^2 + w_4 x_1 x_2 + w_5 x_2^2$.
+  - Possible boundaries: ellipses, intricate shapes, or more complex regions.
+- Logistic regression can fit complex data with appropriate features.
