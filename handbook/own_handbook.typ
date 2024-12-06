@@ -1158,7 +1158,7 @@ Convexity:
 === Key Insights
 - The gradient descent equations look similar for linear and logistic regression, but the difference lies in $f(x)$:
   - Linear regression: $f(x) = w \cdot x + b$.
-  - Logistic regression: $f(x) = frac{1}{1 + e^{-(w \cdot x + b)}}$.
+  - Logistic regression: $f(x) = {1}/{1 + e^{-(w \cdot x + b)}}$.
 - Gradient descent ensures convergence if the cost function is convex.
 
 === Enhancing Gradient Descent
@@ -1167,3 +1167,94 @@ Convexity:
 - *Vectorized Implementation*:
   - Use vectorized operations to compute updates efficiently.
   - Examples provided in optional labs.
+
+= The problem of overfitting
+
+#figure(
+  image("images/2024-12-06-problem-of-overfitting.png")
+)
+
+- *Overfitting*: The model fits the training data too well, capturing noise and failing to generalize to new data.
+- *Underfitting*: The model does not fit the training data well, failing to capture the underlying patterns.
+
+=== Examples with Regression
+1. *Underfitting (High Bias)*:
+   - Model: Linear regression with too few features.
+   - Observation:
+     - Poor fit to training data.
+     - Fails to capture clear trends (e.g., housing prices leveling off for larger houses).
+   - Cause: The model assumes a simplistic relationship between input and output.
+
+2. *Good Fit (Just Right)*:
+   - Model: Quadratic regression with features $x$ and $x^2$.
+   - Observation:
+     - Fits the training data reasonably well.
+     - Likely to generalize to unseen examples.
+
+3. *Overfitting (High Variance)*:
+   - Model: Higher-order polynomial regression (e.g., $x$, $x^2$, $x^3$, $x^4$).
+   - Observation:
+     - Perfectly fits training data but results in a wiggly curve.
+     - Poor generalization to new data.
+   - Cause: The model captures noise or minor fluctuations in the training data.
+
+=== Examples with Classification
+1. *Underfitting (High Bias)*:
+   - Model: Logistic regression with linear features.
+   - Decision Boundary: A straight line.
+   - Observation:
+     - The decision boundary does not adequately separate positive and negative classes.
+
+2. *Good Fit (Just Right)*:
+   - Model: Logistic regression with quadratic features.
+   - Decision Boundary: An ellipse or part of an ellipse.
+   - Observation:
+     - Fits the data well without overcomplicating the decision boundary.
+     - Generalizes well to new data.
+
+3. *Overfitting (High Variance)*:
+   - Model: Logistic regression with many higher-order polynomial features.
+   - Decision Boundary: Complex and highly contorted.
+   - Observation:
+     - Perfectly classifies training examples but is unlikely to generalize to unseen data.
+
+=== Key Concepts
+- *Generalization*:
+  - A good model performs well on both training and unseen examples.
+- *High Bias vs. High Variance*:
+  - High Bias:
+    - Assumes overly simplistic relationships.
+    - Results in underfitting.
+  - High Variance:
+    - Captures noise and minor details.
+    - Results in overfitting.
+
+=== Finding the "Just Right" Model
+- Use an appropriate number of features or complexity for the task.
+- Balance bias and variance to achieve a model that generalizes well.
+
+= Addressing overfitting
+
+- Overfitting occurs when a model fits the training data too closely, capturing noise and failing to generalize.
+- In this video, we discuss three key strategies to address overfitting:
+  1. Collecting more data.
+  2. Using fewer features (feature selection).
+  3. Applying regularization.
+
+=== Strategies to Address Overfitting
+
+1. *Collect More Data*
+   - Larger training sets help models generalize better by learning broader patterns.
+   - Example: With more house size and price data, a high-order polynomial can fit smoother curves.
+   - Limitation: Often, additional data may not be available.
+
+2. *Use Fewer Features*
+   - Removing less relevant features reduces model complexity.
+   - Example:
+     - Original features: $x, x^2, x^3, x^4, ...$.
+     - Reduced features: $x, x^2$.
+   - Feature selection:
+     - Choose features intuitively or based on domain knowledge.
+     - Risk: Discarding useful features may limit model performance.
+   - Advanced Approaches:
+     - Algorithms for automatic feature selection.
