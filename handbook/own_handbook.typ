@@ -1127,3 +1127,19 @@ Convexity:
 === Benefits of Logistic Loss
 - Produces a smooth, convex cost surface without local minima.
 - Ensures robust parameter optimization with gradient descent.
+
+= Simplified Cost Function for Logistic Regression
+
+#figure(
+  image("images/2024-12-06-simplified-cost-function.png")
+)
+=== Simplified Loss Function
+- The logistic regression loss function can be written compactly as:
+  \[
+  L(f(x), y) = -y \log(f(x)) - (1 - y) \log(1 - f(x))
+  \]
+- Explanation:
+  - $y \in \{0, 1\}$ allows simplification:
+    - If $y = 1$: $L = -log(f(x))$.
+    - If $y = 0$: $L = -log(1 - f(x))$.
+  - The simplified formula combines both cases into one expression.
