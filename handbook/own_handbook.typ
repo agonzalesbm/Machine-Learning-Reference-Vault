@@ -315,7 +315,6 @@ Clustering is just one type of unsupervised learning. Other approaches explore d
 ==== Why Linear Functions?
 - Linear functions are simple and foundational.
 - They help transition to more complex, non-linear models (e.g., curves or parabolas).
-
 ==== Univariate Linear Regression
 - One variable (input feature): *size of the house*.
 - $f(x) = w x + b$:
@@ -977,3 +976,363 @@ Update rules:
 - How to decide:
   - Measure model performance with different feature combinations.
   - Later courses explore systematic methods for feature selection.
+
+// week 3
+
+= Motivations
+
+#figure(
+  image("images/2024-12-06-motivations.png")
+)
+
+== Classification
+Predicting one of a small set of categories (e.g., spam or not spam).
+- Contrast with regression:
+  - Regression predicts a continuous value.
+  - Classification predicts discrete categories.
+
+=== Examples of Classification Problems
+1. Email spam detection:
+   - Output: No/Yes (0/1).
+2. Fraud detection in financial transactions:
+   - Output: No/Yes (0/1).
+3. Tumor classification:
+   - Output: Benign/Malignant (0/1).
+
+=== Binary Classification
+- *Definition*: Output variable $y$ has only two possible values.
+- Terminology:
+  - Classes: Categories being predicted (e.g., spam vs. not spam).
+  - Labels:
+    - Negative class: $y = 0$ (e.g., not spam, benign).
+    - Positive class: $y = 1$ (e.g., spam, malignant).
+- Note: Negative/Positive does not imply bad/good; it indicates absence/presence of the feature.
+
+=== Linear Regression for Classification
+- Attempting to use linear regression:
+  1. Fit a straight line to the data.
+  2. Apply a threshold (e.g., $0.5$) to predict:
+     - $y = 0$ if $f(x) < 0.5$.
+     - $y = 1$ if $f(x) \geq 0.5$.
+- Limitations:
+  - Sensitive to outliers:
+    - A single extreme data point can shift the decision boundary, leading to poor predictions.
+  - Outputs are not confined to $[0, 1]$, making it unsuitable for classification.
+
+=== Need for Logistic Regression
+- Logistic regression addresses the limitations of linear regression for classification:
+  - Outputs are always in $[0, 1]$, representing probabilities.
+  - Designed specifically for binary classification.
+
+= Logistic regression
+
+#figure(
+  image("images/2024-12-06-sigmoid-function.png")
+)
+
+- Logistic regression is one of the most widely used classification algorithms.
+- It outputs a probability that the label $y$ belongs to the positive class ($y = 1$).
+
+=== The Sigmoid Function
+- *Definition*: A mathematical function that maps any input $z$ to a value between $0$ and $1$.
+- Formula: $g(z) = {1}/{1 + e^{-z}}$, where $e$ is Euler’s number ($approx 2.7$).
+- Behavior:
+  - At $z = 0$, $g(z) = 0.5$.
+
+=== Logistic Regression Model
+1. *Model Definition*:
+   - Input: $f(x) = g(w \cdot x + b)$, where:
+     - $w \cdot x$ is the dot product of parameters $w$ and features $x$.
+     - $b$ is the bias term.
+     - $g$ is the sigmoid function.
+   - Output: A probability between $0$ and $1$.
+2. *Interpretation*:
+   - $f(x)$ represents $P(y = 1 \mid x)$, the probability that $y = 1$ given input $x$.
+   - If $P(y = 1 \mid x) = 0.7$, there is a $70\%$ chance the label is $1$ and $30\%$ chance it is $0$.
+
+=== Key Properties of Logistic Regression
+- *Outputs*: Always between $0$ and $1$.
+- *Prediction*: Threshold-based:
+  - Predict $y = 1$ if $P(y = 1 \mid x) \geq 0.5$.
+  - Predict $y = 0$ if $P(y = 1 \mid x) < 0.5$.
+
+=== Practical Applications
+- Widely used in applications like Internet advertising, where it determines probabilities and outputs binary predictions.
+
+= Decision boundary
+
+=== Threshold-Based Predictions
+- To predict $y$:
+  - If $f(x) \geq 0.5$, predict $y = 1$.
+  - If $f(x) < 0.5$, predict $y = 0$.
+- Since $g(z) \geq 0.5$ when $z \geq 0$, the model predicts:
+  - $y = 1$ when $w \cdot x + b \geq 0$.
+  - $y = 0$ otherwise.
+
+=== Non-Linear Decision Boundaries
+- By using polynomial features, the decision boundary can become non-linear.
+- *Example with Polynomial Features*:
+  - $z = w_1 x_1^2 + w_2 x_2^2 + b$.
+  - If $w_1 = 1$, $w_2 = 1$, $b = -1$, the decision boundary is $x_1^2 + x_2^2 = 1$ (a circle).
+  - Predictions:
+    - $y = 1$ outside the circle.
+    - $y = 0$ inside the circle.
+
+=== More Complex Boundaries
+- Higher-order polynomial features allow for more complex boundaries:
+  - Example: $z = w_1 x_1 + w_2 x_2 + w_3 x_1^2 + w_4 x_1 x_2 + w_5 x_2^2$.
+  - Possible boundaries: ellipses, intricate shapes, or more complex regions.
+- Logistic regression can fit complex data with appropriate features.
+
+= Cost function for logistic regression
+
+- The cost function measures how well a logistic regression model fits the training data.
+- Logistic regression requires a cost function that is convex to ensure reliable optimization with gradient descent.
+
+=== Why Not Use Squared Error for Logistic Regression?
+- Squared error cost function:
+  - Works well for linear regression, producing a convex surface.
+  - For logistic regression, results in a non-convex surface with many local minima.
+  - Gradient descent may get stuck in local minima, failing to find optimal parameters.
+- Solution: Define a new loss function specific to logistic regression.
+
+=== Loss Function for Logistic Regression
+1. Definition:
+   - For $y = 1$: ${L o s s} = -log(f(x))$.
+   - For $y = 0$: ${L o s s} = -log(1 - f(x))$.
+   - $f(x) = {1}/{1 + e^{-z}}$, where $z = w \cdot x + b$.
+2. Properties:
+   - Encourages correct predictions:
+     - When $y = 1$, small loss for $f(x) approx 1$.
+     - When $y = 0$, small loss for $f(x) approx 0$.
+   - Penalizes incorrect predictions:
+     - Loss increases as $f(x)$ moves away from the true label.
+
+=== Visualizing the Loss Function
+1. *For $y = 1$*:
+   - Loss approaches $0$ as $f(x) \to 1$.
+   - Loss grows rapidly as $f(x) \to 0$.
+2. *For $y = 0$*:
+   - Loss approaches $0$ as $f(x) \to 0$.
+   - Loss grows rapidly as $f(x) \to 1$.
+
+=== Cost Function for Logistic Regression
+
+#figure(
+  image("images/2024-12-06-cost-logistic-regression.png")
+)
+
+Convexity:
+   - With the logistic loss, $J(w, b)$ is convex.
+   - Ensures gradient descent converges reliably to the global minimum.
+
+=== Benefits of Logistic Loss
+- Produces a smooth, convex cost surface without local minima.
+- Ensures robust parameter optimization with gradient descent.
+
+= Simplified Cost Function for Logistic Regression
+
+#figure(
+  image("images/2024-12-06-simplified-cost-function.png")
+)
+=== Simplified Loss Function
+- The logistic regression loss function can be written compactly as:
+  \[
+  L(f(x), y) = -y \log(f(x)) - (1 - y) \log(1 - f(x))
+  \]
+- Explanation:
+  - $y \in \{0, 1\}$ allows simplification:
+    - If $y = 1$: $L = -log(f(x))$.
+    - If $y = 0$: $L = -log(1 - f(x))$.
+  - The simplified formula combines both cases into one expression.
+
+= Gradient descent implementation
+
+#figure(
+  image("images/2024-12-06-gradient-descent-implementation.png")
+)
+
+- Goal: Minimize the cost function $J(w, b)$ to find the optimal parameters $w$ and $b$.
+- Prediction: After training, the model can estimate $P(y = 1 \mid x)$ for a new input $x$.
+
+=== Key Insights
+- The gradient descent equations look similar for linear and logistic regression, but the difference lies in $f(x)$:
+  - Linear regression: $f(x) = w \cdot x + b$.
+  - Logistic regression: $f(x) = {1}/{1 + e^{-(w \cdot x + b)}}$.
+- Gradient descent ensures convergence if the cost function is convex.
+
+=== Enhancing Gradient Descent
+- *Feature Scaling*:
+  - Scaling features (e.g., to $[-1, 1]$) speeds up convergence, just as in linear regression.
+- *Vectorized Implementation*:
+  - Use vectorized operations to compute updates efficiently.
+  - Examples provided in optional labs.
+
+= The problem of overfitting
+
+#figure(
+  image("images/2024-12-06-problem-of-overfitting.png")
+)
+
+- *Overfitting*: The model fits the training data too well, capturing noise and failing to generalize to new data.
+- *Underfitting*: The model does not fit the training data well, failing to capture the underlying patterns.
+
+=== Examples with Regression
+1. *Underfitting (High Bias)*:
+   - Model: Linear regression with too few features.
+   - Observation:
+     - Poor fit to training data.
+     - Fails to capture clear trends (e.g., housing prices leveling off for larger houses).
+   - Cause: The model assumes a simplistic relationship between input and output.
+
+2. *Good Fit (Just Right)*:
+   - Model: Quadratic regression with features $x$ and $x^2$.
+   - Observation:
+     - Fits the training data reasonably well.
+     - Likely to generalize to unseen examples.
+
+3. *Overfitting (High Variance)*:
+   - Model: Higher-order polynomial regression (e.g., $x$, $x^2$, $x^3$, $x^4$).
+   - Observation:
+     - Perfectly fits training data but results in a wiggly curve.
+     - Poor generalization to new data.
+   - Cause: The model captures noise or minor fluctuations in the training data.
+
+=== Examples with Classification
+1. *Underfitting (High Bias)*:
+   - Model: Logistic regression with linear features.
+   - Decision Boundary: A straight line.
+   - Observation:
+     - The decision boundary does not adequately separate positive and negative classes.
+
+2. *Good Fit (Just Right)*:
+   - Model: Logistic regression with quadratic features.
+   - Decision Boundary: An ellipse or part of an ellipse.
+   - Observation:
+     - Fits the data well without overcomplicating the decision boundary.
+     - Generalizes well to new data.
+
+3. *Overfitting (High Variance)*:
+   - Model: Logistic regression with many higher-order polynomial features.
+   - Decision Boundary: Complex and highly contorted.
+   - Observation:
+     - Perfectly classifies training examples but is unlikely to generalize to unseen data.
+
+=== Key Concepts
+- *Generalization*:
+  - A good model performs well on both training and unseen examples.
+- *High Bias vs. High Variance*:
+  - High Bias:
+    - Assumes overly simplistic relationships.
+    - Results in underfitting.
+  - High Variance:
+    - Captures noise and minor details.
+    - Results in overfitting.
+
+=== Finding the "Just Right" Model
+- Use an appropriate number of features or complexity for the task.
+- Balance bias and variance to achieve a model that generalizes well.
+
+= Addressing overfitting
+
+- Overfitting occurs when a model fits the training data too closely, capturing noise and failing to generalize.
+- In this video, we discuss three key strategies to address overfitting:
+  1. Collecting more data.
+  2. Using fewer features (feature selection).
+  3. Applying regularization.
+
+=== Strategies to Address Overfitting
+
+1. *Collect More Data*
+   - Larger training sets help models generalize better by learning broader patterns.
+   - Example: With more house size and price data, a high-order polynomial can fit smoother curves.
+   - Limitation: Often, additional data may not be available.
+
+2. *Use Fewer Features*
+   - Removing less relevant features reduces model complexity.
+   - Example:
+     - Original features: $x, x^2, x^3, x^4, ...$.
+     - Reduced features: $x, x^2$.
+   - Feature selection:
+     - Choose features intuitively or based on domain knowledge.
+     - Risk: Discarding useful features may limit model performance.
+   - Advanced Approaches:
+     - Algorithms for automatic feature selection.
+
+= Cost function with regularization
+
+#figure(
+  image("images/2024-12-06-regularization.png")
+)
+
+- Regularization modifies the cost function to penalize large parameter values.
+- This discourages overly complex models and reduces overfitting.
+
+=== How Regularization Works
+- Penalizes large values of $w_j$, encouraging smaller parameters.
+- Smaller $w_j$ reduces the influence of less important features, leading to a simpler, smoother model.
+- Helps the model generalize better to unseen data.
+
+=== Effects of lambda
+1. *$lambda = 0$ (No Regularization)*:
+   - Regularization term is ignored.
+   - The model overfits, fitting a highly complex and wiggly curve.
+2. *$lambda -> infinity$ (Very Large)*:
+   - The regularization term dominates.
+   - All $w_j \to 0$, resulting in an underfit (e.g., a flat line).
+3. *Optimal lambda*:
+   - Balances fitting the training data and keeping $w_j$ small.
+   - Produces a model that generalizes well to new data.
+
+=== Implementation Details
+* Regularization is typically applied to $w_1, w_2, ..., w_n$.
+* The bias parameter $b$ is usually excluded from regularization:
+   - Regularizing $b$ has minimal practical impact and is often omitted.
+
+= Regularized linear regression
+
+#figure(
+  image("images/2024-12-06-regularized-linear-regression.png")
+)
+
+- Regularized linear regression modifies the cost function to include a regularization term, penalizing large parameter values.
+- Gradient descent can be adapted to minimize the regularized cost function effectively.
+
+=== Regularized Cost Function
+- First term: Mean squared error.
+- Second term: Regularization term.
+  - lambda: Regularization parameter, controlling the strength of regularization.
+  - $w_j$: Model parameters (excluding $b$).
+
+=== Gradient Descent Updates
+All parameters are updated simultaneously after calculating their gradients.
+
+=== Intuition Behind Regularization
+Regularization term adds ${lambda}/{m} w_j$ to the gradient of $w_j$, shrinking $w_j$ on each iteration.
+Effect:
+  - Regularization reduces $w_j$ iteratively, preventing overfitting.
+  - The regularization strength is controlled by lambda.
+
+= Regularized logistic regression
+
+=== Overfitting and Regularization
+
+#figure(
+  image("images/2024-12-06-cost-logistic-regression.png"),
+)
+
+- *Problem:* Logistic regression with high-order polynomial features can lead to overfitting.
+  - The decision boundary becomes overly complex and does not generalize well to new examples.
+- *Solution:* Use regularization to prevent overfitting, even with many features.
+  - Add a regularization term to the cost function:
+  - This penalizes large parameters $w_1, w_2, ..., w_n$.
+
+=== Gradient Descent Update Rule
+- *Gradient Descent:*
+  - The update for regularized logistic regression is similar to linear regression.
+  - The difference is in the derivative term: $w_j$ gets an additional regularization term:
+  - No regularization is applied to $b$.
+
+=== Logistic Regression vs Linear Regression
+- *Logistic Function:* In logistic regression, the hypothesis function is the sigmoid function:
+- The regularization term works similarly to regularized linear regression, but for logistic regression, $f$ is the sigmoid function, not a linear function.
