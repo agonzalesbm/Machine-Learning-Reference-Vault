@@ -1288,3 +1288,27 @@ Convexity:
 * Regularization is typically applied to $w_1, w_2, ..., w_n$.
 * The bias parameter $b$ is usually excluded from regularization:
    - Regularizing $b$ has minimal practical impact and is often omitted.
+
+= Regularized linear regression
+
+#figure(
+  image("images/2024-12-06-regularized-linear-regression.png")
+)
+
+- Regularized linear regression modifies the cost function to include a regularization term, penalizing large parameter values.
+- Gradient descent can be adapted to minimize the regularized cost function effectively.
+
+=== Regularized Cost Function
+- First term: Mean squared error.
+- Second term: Regularization term.
+  - lambda: Regularization parameter, controlling the strength of regularization.
+  - $w_j$: Model parameters (excluding $b$).
+
+=== Gradient Descent Updates
+All parameters are updated simultaneously after calculating their gradients.
+
+=== Intuition Behind Regularization
+Regularization term adds ${lambda}/{m} w_j$ to the gradient of $w_j$, shrinking $w_j$ on each iteration.
+Effect:
+  - Regularization reduces $w_j$ iteratively, preventing overfitting.
+  - The regularization strength is controlled by lambda.
