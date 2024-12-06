@@ -848,3 +848,30 @@ Update rules:
 - Practical Use:
   - Rarely implemented manually.
   - Often used as a backend in some machine learning libraries.
+
+= Feature Scaling
+
+== *Mean Normalization*:
+   - Center features around $0$ by subtracting the mean and dividing by the range.
+
+#figure(
+  image("images/2024-12-05-mean-normalization.png"),
+)
+
+== *Z-Score Normalization*:
+   - Normalize using mean and standard deviation $sigma_j$.
+
+#figure(
+  image("images/2024-12-05-z-score-normalization.png"),
+)
+
+=== Benefits of Feature Scaling
+- Scaled features ensure cost function contours are circular, enabling faster convergence.
+- Gradient descent follows a direct path to the global minimum.
+
+=== When to Scale
+- Features should typically range from around $-1$ to $+1$, though small deviations are fine.
+- Re-scaling is recommended for:
+  - Very large ranges (e.g., $[-100, +100]$).
+  - Very small ranges (e.g., $[-0.001, +0.001]$).
+  - Moderate ranges (e.g., $[98.6, 105]$ degrees Fahrenheit).
