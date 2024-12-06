@@ -1312,3 +1312,27 @@ Regularization term adds ${lambda}/{m} w_j$ to the gradient of $w_j$, shrinking 
 Effect:
   - Regularization reduces $w_j$ iteratively, preventing overfitting.
   - The regularization strength is controlled by lambda.
+
+= Regularized logistic regression
+
+=== Overfitting and Regularization
+
+#figure(
+  image("images/2024-12-06-cost-logistic-regression.png"),
+)
+
+- *Problem:* Logistic regression with high-order polynomial features can lead to overfitting.
+  - The decision boundary becomes overly complex and does not generalize well to new examples.
+- *Solution:* Use regularization to prevent overfitting, even with many features.
+  - Add a regularization term to the cost function:
+  - This penalizes large parameters $w_1, w_2, ..., w_n$.
+
+=== Gradient Descent Update Rule
+- *Gradient Descent:*
+  - The update for regularized logistic regression is similar to linear regression.
+  - The difference is in the derivative term: $w_j$ gets an additional regularization term:
+  - No regularization is applied to $b$.
+
+=== Logistic Regression vs Linear Regression
+- *Logistic Function:* In logistic regression, the hypothesis function is the sigmoid function:
+- The regularization term works similarly to regularized linear regression, but for logistic regression, $f$ is the sigmoid function, not a linear function.
