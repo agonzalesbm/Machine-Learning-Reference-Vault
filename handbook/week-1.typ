@@ -939,3 +939,41 @@ Update rules:
 - Updated Model:
   - $f_{w,b}(x) = w_1x_1 + w_2x_2 + w_3x_3 + b$.
   - $w_3$ determines how much area contributes to the prediction, alongside frontage and depth.
+
+= Polynomial regression
+
+#figure(
+  image("images/2024-12-05-polynomial-regression.png")
+)
+
+=== Example: Housing Prices
+1. *Dataset*:
+   - Feature $x$: size of the house in square feet.
+   - Observations: A straight line does not fit the data well.
+2. *Quadratic Model*:
+   - Features: $x$ and $x^2$.
+   - Adds a curve to the fit, but a quadratic model may decrease as $x$ increases, which might not align with intuition about housing prices.
+3. *Cubic Model*:
+   - Features: $x$, $x^2$, and $x^3$.
+   - Produces a curve that increases as size increases, fitting the data better.
+
+=== Feature Engineering in Polynomial Regression
+- Polynomial terms:
+  - $x^2$, $x^3$, etc., provide flexibility for modeling non-linear patterns.
+- Alternative features:
+  - Square root of $x$: Produces a curve that becomes less steep as $x$ increases, without flattening or decreasing.
+
+=== Importance of Feature Scaling
+- Polynomial terms create features with vastly different ranges:
+  - $x$ ranges from $1$ to $1,000$.
+  - $x^2$ ranges from $1$ to $1,000,000$.
+  - $x^3$ ranges from $1$ to $1,000,000,000$.
+- Feature scaling ensures these features have comparable ranges, improving gradient descent efficiency.
+
+=== Choosing Features
+- Wide range of feature choices:
+  - Polynomial terms like $x^2$, $x^3$.
+  - Non-linear transformations like $sqrt{x}$.
+- How to decide:
+  - Measure model performance with different feature combinations.
+  - Later courses explore systematic methods for feature selection.
