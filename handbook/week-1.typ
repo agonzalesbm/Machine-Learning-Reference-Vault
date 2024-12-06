@@ -713,3 +713,267 @@ Update rules:
 ==== Convexity
 - The squared error cost function is *convex*, meaning it has a single global minimum.
 - Gradient descent will always converge to the global minimum for appropriately chosen $alpha$.
+
+// week 2
+
+= Multiple features
+
+#figure(
+  image("images/2024-12-05-multiple-features.png"),
+)
+
+=== Single vs. Multiple Features
+- *Original Linear Regression*:
+  - A single feature $x$ (e.g., house size) predicts $y$ (e.g., house price).
+  - Model: $f_{w,b}(x) = w x + b$.
+- *Multiple Features*:
+  - Predict using several features:
+    - $x_1$: size of the house.
+    - $x_2$: number of bedrooms.
+    - $x_3$: number of floors.
+    - $x_4$: age of the home (years).
+
+=== Notation for Multiple Features
+- *Feature Representation*:
+  - $x_j$: the $j$-th feature.
+  - $n$: total number of features (e.g., $n = 4$).
+- *Training Examples*:
+  - $x^{(i)}$: list (or vector) of features for the $i$-th example.
+  - Example: $x^{(2)} = [1416, 3, 2, 40]$.
+  - $x^{(i)}_j$: value of the $j$-th feature for the $i$-th example.
+    - E.g., $x^{(2)}_3 = 2$ (number of floors in the second example).
+
+=== Model for Multiple Features
+- *General Model*:
+  - $f_{w,b}(x) = w_1x_1 + w_2x_2 + w_3x_3 + w_4x_4 + b$.
+- *Example*:
+  - Housing price prediction:
+    $f_{w,b}(x) = 0.1x_1 + 4x_2 + 10x_3 - 2x_4 + 80$.
+  - Interpretation:
+    - $b = 80$: base price ($80,000$).
+    - $0.1$: price increases by $100$ for every additional square foot.
+    - $4$: price increases by $4,000$ per bedroom.
+    - $10$: price increases by $10,000$ per floor.
+    - $-2$: price decreases by $2,000$ per year of age.
+
+=== Vectorized Notation
+- *Parameters and Features*:
+  - $w$: vector of parameters $\[w_1, w_2, ..., w_n\]$.
+  - $x$: vector of features $\[x_1, x_2, ..., x_n\]$.
+  - $b$: single number (not a vector).
+- *Model (Compact Form)*:
+  - $f_{w,b}(x) = w \cdot x + b$, where $\cdot$ denotes the dot product.
+
+=== Dot Product
+- *Definition*:
+  - $w \cdot x = w_1x_1 + w_2x_2 + ... + w_n x_n$.
+  - Equivalent to $f_{w,b}(x) = w \cdot x + b$.
+- *Purpose*: Simplifies notation and implementation.
+
+=== Types of Regression
+- *Univariate Regression*: Single feature.
+- *Multiple Linear Regression*: Multiple features.
+  - Note: Multivariate regression refers to something else not covered here.
+
+= Vectorization
+
+=== Example: Dot Product
+- Suppose $w$ and $x$ are vectors with three numbers, and $b$ is a scalar:
+  - $n = 3$, $w = \[w_1, w_2, w_3\]$, $x = \[x_1, x_2, x_3\]$.
+- *Without Vectorization*:
+  - Compute $f = w_1x_1 + w_2x_2 + w_3x_3 + b$ using a loop.
+- *With Vectorization*:
+  - Use the dot product: $f = w \cdot x + b$.
+  - In Python: `f = np.dot(w, x) + b`.
+
+=== Benefits of Vectorization
+1. *Conciseness*: Code becomes shorter and easier to maintain.
+2. *Efficiency*: Runs faster by leveraging parallel hardware.
+
+=== Behind the Scenes
+- *Non-Vectorized Implementation*:
+  - Operations are sequential, one calculation at a time.
+- *Vectorized Implementation*:
+  - Parallel processing computes all operations (e.g., multiplications and additions) in a single step.
+
+=== Practical Impact
+- For large $n$ (e.g., thousands of features), vectorization significantly reduces computation time.
+- Enables machine learning algorithms to scale effectively to large datasets.
+
+=== Example: Gradient Descent Update
+- *Non-Vectorized*:
+#codeBlock(
+  ```python
+  for j in range(n):
+      w[j] = w[j] - alpha * d[j]
+  ```
+)
+
+= Gradient descent for multiple linear Regression
+
+#figure(
+  image("images/2024-12-05-gradiant-descent.png"),
+)
+
+=== Review of Multiple Linear Regression
+- Parameters:
+  - $w = \[w_1, w_2, ..., w_n\]$: a vector of length $n$.
+  - $b$: a scalar parameter.
+- Model in Vector Notation:
+  - $f_{w,b}(x) = w \cdot x + b$, where $\cdot$ is the dot product.
+- Cost Function:
+  - $J(w, b)$ is now defined as a function of the parameter vector $w$ and scalar $b$.
+
+=== Gradient Descent
+- Update Rules:
+  - $w_j := w_j - alpha {partial J}/{partial w_j}$ for $j = 1, ..., n$.
+  - $b := b - alpha {partial J}/{partial b}$.
+- For $n$ features:
+  - Update each $w_j$ (for $j = 1$ to $n$) based on the gradient of $J$ with respect to $w_j$.
+  - Update $b$ similarly as in the univariate case.
+
+=== Vectorized Implementation
+- Efficient updates using vectorized operations:
+  - $w := w - alpha \cdot nabla_w J$
+  - $b := b - alpha \cdot {partial J}/{partial b}$.
+
+=== The Normal Equation
+- An alternative to gradient descent:
+  - Solves for $w$ and $b$ directly using advanced linear algebra.
+  - Advantages:
+    - No iterations required.
+  - Disadvantages:
+    - Limited to linear regression.
+    - Computationally expensive for large $n$.
+- Practical Use:
+  - Rarely implemented manually.
+  - Often used as a backend in some machine learning libraries.
+
+= Feature Scaling
+
+== *Mean Normalization*:
+   - Center features around $0$ by subtracting the mean and dividing by the range.
+
+#figure(
+  image("images/2024-12-05-mean-normalization.png"),
+)
+
+== *Z-Score Normalization*:
+   - Normalize using mean and standard deviation $sigma_j$.
+
+#figure(
+  image("images/2024-12-05-z-score-normalization.png"),
+)
+
+=== Benefits of Feature Scaling
+- Scaled features ensure cost function contours are circular, enabling faster convergence.
+- Gradient descent follows a direct path to the global minimum.
+
+=== When to Scale
+- Features should typically range from around $-1$ to $+1$, though small deviations are fine.
+- Re-scaling is recommended for:
+  - Very large ranges (e.g., $[-100, +100]$).
+  - Very small ranges (e.g., $[-0.001, +0.001]$).
+  - Moderate ranges (e.g., $[98.6, 105]$ degrees Fahrenheit).
+
+= Choosing the learning rate
+
+#figure(
+  image("images/2024-12-05-choosing-learninig-rate.png"),
+)
+
+=== Importance of Learning Rate
+- The learning rate alpha affects:
+  - *Convergence speed*: Too small, and training is slow.
+  - *Stability*: Too large, and training may not converge.
+- Signs of incorrect alpha:
+  - Cost $J$ oscillates or increases: alpha might be too large.
+  - Cost $J$ consistently decreases: alpha is likely appropriate.
+
+=== Debugging Gradient Descent
+1. *Cost Goes Up and Down*:
+   - Overshooting the minimum due to a large alpha.
+   - Fix: Use a smaller alpha.
+2. *Cost Consistently Increases*:
+   - Possible bug: Ensure update is $w_1 := w_1 - alpha {partial J}/{partial w_1}$.
+
+=== Strategy for Choosing alpha
+- *Testing a Range of Values*:
+  - Start with a small value, e.g., $alpha = 0.001$.
+  - Increase alpha progressively (e.g., $3$): $0.001$, $0.003$, $0.01$, $0.03$, etc.
+- *Optimal alpha*:
+  - Choose the largest alpha that results in a steady decrease of $J$.
+
+=== Practical Tips
+- *Debugging Step*: Use a very small alpha temporarily to ensure $J$ decreases every iteration.
+- *Efficient Training*: Avoid overly small alpha, as it slows convergence.
+- *Visualization*:
+  - Plot $J$ against iterations for different alpha values to observe trends.
+
+= Feature engineering
+
+#figure(
+  image("images/2024-12-05-feature-engineering.png")
+)
+
+=== What is Feature Engineering?
+- *Definition*: Using domain knowledge to create new features by transforming or combining existing ones.
+- Benefits:
+  - Enhances the learning algorithm’s ability to capture relationships in the data.
+  - Provides a better representation of the problem for the model.
+
+=== Importance of Features
+- The choice of features significantly impacts a learning algorithm’s success.
+- *Feature engineering*: Creating or modifying features to improve the model's performance.
+
+=== Example: Predicting House Prices
+- Original Features:
+  - $x_1$: Width (frontage) of the lot.
+  - $x_2$: Depth of the lot.
+- Initial Model:
+  - $f_{w,b}(x) = w_1x_1 + w_2x_2 + b$.
+  - Treats frontage and depth as separate predictors.
+
+=== Creating a New Feature
+- Observation: Area ($x_3$) = $x_1 \cdot x_2$ might better predict house prices.
+- Updated Model:
+  - $f_{w,b}(x) = w_1x_1 + w_2x_2 + w_3x_3 + b$.
+  - $w_3$ determines how much area contributes to the prediction, alongside frontage and depth.
+
+= Polynomial regression
+
+#figure(
+  image("images/2024-12-05-polynomial-regression.png")
+)
+
+=== Example: Housing Prices
+1. *Dataset*:
+   - Feature $x$: size of the house in square feet.
+   - Observations: A straight line does not fit the data well.
+2. *Quadratic Model*:
+   - Features: $x$ and $x^2$.
+   - Adds a curve to the fit, but a quadratic model may decrease as $x$ increases, which might not align with intuition about housing prices.
+3. *Cubic Model*:
+   - Features: $x$, $x^2$, and $x^3$.
+   - Produces a curve that increases as size increases, fitting the data better.
+
+=== Feature Engineering in Polynomial Regression
+- Polynomial terms:
+  - $x^2$, $x^3$, etc., provide flexibility for modeling non-linear patterns.
+- Alternative features:
+  - Square root of $x$: Produces a curve that becomes less steep as $x$ increases, without flattening or decreasing.
+
+=== Importance of Feature Scaling
+- Polynomial terms create features with vastly different ranges:
+  - $x$ ranges from $1$ to $1,000$.
+  - $x^2$ ranges from $1$ to $1,000,000$.
+  - $x^3$ ranges from $1$ to $1,000,000,000$.
+- Feature scaling ensures these features have comparable ranges, improving gradient descent efficiency.
+
+=== Choosing Features
+- Wide range of feature choices:
+  - Polynomial terms like $x^2$, $x^3$.
+  - Non-linear transformations like $sqrt{x}$.
+- How to decide:
+  - Measure model performance with different feature combinations.
+  - Later courses explore systematic methods for feature selection.
