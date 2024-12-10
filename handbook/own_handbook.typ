@@ -1357,3 +1357,18 @@ Effect:
 2. *Algorithm scalability*:
    - Traditional algorithms like linear regression struggled to improve with more data.
    - Larger neural networks demonstrated increased performance with more data.
+
+= Demand Prediction
+
+#figure(
+  image("images/2024-12-10-demand-prediction.png")
+)
+
+== Structure of a Neural Network:
+    - *Input Layer*: Accepts a vector of features (data).
+    - *Hidden Layer*: Processes the input vector and outputs a vector of activations (data like activators).
+    - *Output Layer*: Takes the hidden layer's output and produces the final activation or prediction.
+== Feature Representation:
+    - Neural networks automatically determine relevant features during training.
+    - No need to predefine features like affordability, awareness, or perceived quality explicitly.
+    - The network learns and selects the most useful features for prediction.
