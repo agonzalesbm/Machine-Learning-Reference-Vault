@@ -1336,3 +1336,24 @@ Effect:
 === Logistic Regression vs Linear Regression
 - *Logistic Function:* In logistic regression, the hypothesis function is the sigmoid function:
 - The regularization term works similarly to regularized linear regression, but for logistic regression, $f$ is the sigmoid function, not a linear function.
+
+= Neurons and the brain
+
+#figure(
+  image("images/2024-12-09-neurons-and-the-brain.png")
+)
+
+== Biological vs. Artificial Neural Networks
+- *Biological neurons*:
+  - Composed of dendrites (inputs), a nucleus (cell body), and an axon (output).
+  - Function through electrical impulses and neuron-to-neuron connections.
+- *Artificial neurons*:
+  - Simplified mathematical models taking numerical inputs, performing computations, and producing outputs.
+  - Organized into layers to process data collectively.
+
+== Factors Behind Recent Success
+1. *Data availability*:
+   - Digitalization of society has provided vast datasets for applications.
+2. *Algorithm scalability*:
+   - Traditional algorithms like linear regression struggled to improve with more data.
+   - Larger neural networks demonstrated increased performance with more data.
