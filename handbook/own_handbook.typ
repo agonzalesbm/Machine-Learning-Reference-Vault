@@ -1555,3 +1555,37 @@ Effect:
    - Example:
      - Explicit approach: Define and connect layers manually.
      - Compact approach: Use `Sequential` to define the network structure in one step.
+
+#figure(
+  image("images/2024-12-17-foward-prop-single-layer.png")
+)
+
+1. *Overview*
+   - Forward propagation can be implemented manually in Python to understand the underlying mechanics of frameworks like TensorFlow and PyTorch.
+   - This exercise helps gain intuition about computations and could inspire future innovations in neural network frameworks.
+
+2. *Using 1D Arrays*
+   - Vectors and parameters are represented as 1D arrays in Python (single square brackets), unlike 2D matrices (double square brackets).
+   - Example: A parameter like $w^[2]_1$ is represented as $w 2_1$ in Python using underscores for subscripts.
+
+3. *Step-by-Step Computation of $a 1$ (First Layer Activations)*
+   - *Compute $a 1_1$*:
+     - Parameters: $w 1_1 = [1, 2]$, $b 1_1 = -1$.
+     - $z 1_1 = w 1_1 \cdot x + b 1_1$.
+     - $a 1_1 = g(z 1_1)$, where $g$ is the sigmoid function.
+
+   - *Compute $a 1_2$*:
+     - Parameters: $w 1_2 = [-3, 4]$, $b 1_2 = 0$.
+     - $z 1_2 = w 1_2 \cdot x + b 1_2$.
+     - $a 1_2 = g(z 1_2)$.
+
+   - *Compute $a 1_3$*:
+     - Similar process to $a 1_1$ and $a 1_2$ with respective weights and biases.
+
+   - *Group $a 1_1$, $a 1_2$, and $a 1_3$*:
+     - Use `np.array` to combine these values into $a 1$, which represents the output of the first layer.
+
+4. *Compute $a 2$ (Second Layer Output)*
+   - Parameters: $w 2_1$ and $b 2_1$.
+   - $z 2 = w 2_1 \cdot a 1 + b 2_1$.
+   - $a 2 = g(z 2)$.
