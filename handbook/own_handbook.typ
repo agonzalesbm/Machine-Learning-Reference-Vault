@@ -1496,3 +1496,32 @@ Effect:
    - *Dense Layer*:
      - A layer type with learned parameters $w$ (weights) and $b$ (biases).
      - Uses the sigmoid function for activation in this example.
+
+= Data in TensorFlow
+
+#figure(
+  image("images/2024-12-17-data-in-tensor-flow.png")
+)
+
+1. *Definition of $a^[1]$*
+   - $a^[1]$ is computed as the output of applying *Layer 1* to $x$.
+   - Result: A $1 "times" 3$ matrix.
+   - Example: $a^[1] = "tf.tensor"([0.2, 0.7, 0.3])$ with shape $(1, 3)$.
+
+2. *Details of Tensor Representation*
+   - $a^[1]$ is stored as a TensorFlow tensor:
+     - Data type: Float32 (32-bit floating-point numbers).
+   - *Tensor Definition*:
+     - A data type created by TensorFlow to efficiently store and compute on matrices.
+     - Simplified understanding: Treat tensors as matrices for this course.
+
+3. *Converting Between TensorFlow and NumPy*
+   - TensorFlow tensors and NumPy arrays are two different matrix representations due to historical development.
+   - Conversion example:
+     - TensorFlow to NumPy use: .
+      #codeBlock(
+        ```python
+          a^[1].numpy()
+        ```
+      )
+     - Result: Converts the TensorFlow tensor to a NumPy array.
