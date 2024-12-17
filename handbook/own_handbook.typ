@@ -1589,3 +1589,42 @@ Effect:
    - Parameters: $w 2_1$ and $b 2_1$.
    - $z 2 = w 2_1 \cdot a 1 + b 2_1$.
    - $a 2 = g(z 2)$.
+
+= General Implementation of forward propagation
+
+#figure(
+  image("images/2024-12-17-general-forward-propagation.png")
+)
+
+=== Dense Layer Function
+
+- *Definition:* A dense layer is a single layer of a neural network that computes activations from the previous layer using weights $w$ and biases $b$.
+
+==== Parameters
+1. *Input Activation:* The activation from the previous layer, denoted as $a$ (e.g., $a_0 = x$ for input layer).
+2. *Weights ($w$):* Parameters stacked in columns, e.g., $w_{1,1}, w_{1,2}, w_{1,3}$ form a $2  3$ matrix.
+3. *Biases ($b$):* Parameters stacked into a 1D array, e.g., $[-1, 1, 2]$.
+
+==== Dense Function Workflow
+1. *Initialization:*
+   - Compute the number of units: $"units" = W."shape"[1]$.
+   - Initialize $a$ as an array of zeros with $"units"$ elements.
+2. *Compute Activations:*
+   - Loop through each unit $j$ in the range $[0, "units"-1]$:
+     - Extract column $j$ of $w$ using $W[:, j]$.
+     - Compute $z = w \cdot a + b[j]$.
+     - Compute activation $a[j] = g(z)$, where $g$ is the sigmoid function.
+3. *Return Output:* The array $a$ containing activations for the current layer.
+
+#codeBlock(
+  ```python
+  def dense(a_prev, W, b):
+      units = W.shape[1]
+      a = np.zeros(units)
+      for j in range(units):
+          w = W[:, j]
+          z = np.dot(w, a_prev) + b[j]
+          a[j] = sigmoid(z)
+      return a
+  ```
+)
