@@ -1525,3 +1525,33 @@ Effect:
         ```
       )
      - Result: Converts the TensorFlow tensor to a NumPy array.
+
+= Building a neural network
+
+#figure(
+  image("images/2024-12-17-building-neural-network.png")
+)
+
+1. *Specifying Layers Sequentially*
+   - Layers (e.g., Layer 1, Layer 2, Layer 3) are defined and combined into a neural network using TensorFlow's `Sequential` function.
+   - TensorFlow automatically strings the layers together into a cohesive model.
+   - TensorFlow's `Sequential` function simplifies model creation by combining layers efficiently.
+
+2. *Workflow for Neural Network Training*
+   - Steps:
+     - Define layers with `Sequential`.
+     - Store data in a matrix.
+     - Run `compile` to configure the model.
+     - Use `fit` to train the model.
+   - Example: This process mirrors earlier examples, like the coffee classification network.
+
+3. *Inference and Predictions*
+   - Use `model.predict(X_new)` to make predictions on new data.
+   - The function generates predictions based on the trained model.
+
+4. *Compact Code Using Sequential*
+   - Instead of explicitly assigning layers (e.g., Layer 1, Layer 2, Layer 3), place them directly into the `Sequential` function.
+   - Benefit: Produces more concise and readable code.
+   - Example:
+     - Explicit approach: Define and connect layers manually.
+     - Compact approach: Use `Sequential` to define the network structure in one step.
