@@ -1372,3 +1372,52 @@ Effect:
     - Neural networks automatically determine relevant features during training.
     - No need to predefine features like affordability, awareness, or perceived quality explicitly.
     - The network learns and selects the most useful features for prediction.
+
+= More complex neural networks
+
+#figure(
+  image("images/2024-12-17-more-complex-neural-networks.png")
+)
+
+1. *Introduction to Layers*
+   - This example involves a neural network with *four layers* (excluding the input layer).
+   - *Layer 0*: Input layer (not counted in the total layer count).
+   - *Layers 1, 2, 3*: Hidden layers.
+   - *Layer 4*: Output layer.
+
+2. *Computation in Layer 3 (Hidden Layer)*
+   - *Inputs*: Vector $a^{[2]}$, the output of Layer 2.
+   - *Outputs*: Vector $a^{[3]}$, computed as:
+     $$a_j^{[3]} = g(w_j^{[3]} \cdot a^{[2]} + b_j^{[3]})$$
+     - $g$: Sigmoid activation function.
+     - $w_j^{[3]}$: Weight vector for neuron $j$ in Layer 3.
+     - $b_j^{[3]}$: Bias for neuron $j$ in Layer 3.
+
+   - The result is a vector $a^{[3]}$, where each element corresponds to an activation value for a neuron in Layer 3.
+
+3. *Notation Details*
+   - Superscripts $[l]$: Indicate layer $l$.
+   - Subscripts $j$: Refer to the $j^{t h}$ neuron in a layer.
+   - Example:
+     - $a^{[3]}_2$: Activation of the 2nd neuron in Layer 3.
+     - $w^{[3]}_2$, $b^{[3]}_2$: Parameters for the same neuron.
+   - Input vector $X$ is denoted as $a^{[0]}$, aligning with the general notation.
+
+4. *General Computation for Any Layer*
+   - For layer $l$ and neuron $j$:
+     $$
+     a_j^{[l]} = g(w_j^{[l]} \cdot a^{[l-1]} + b_j^{[l]})
+     $$
+     - $a^{[l-1]}$: Activation vector from the previous layer.
+     - $g$: Activation function (e.g., sigmoid, ReLU, etc.).
+
+5. *Activation Functions*
+   - Current focus: Sigmoid function $g(z) = {1}/{1 + e^{-z}}$.
+   - *Role*: Outputs activation values for neurons in the network.
+   - Future lessons may cover alternative activation functions.
+
+6. *Recap of Activation Calculation*
+   - To compute activations for any neuron in any layer:
+     1. Dot-product the weight vector with the input activations from the previous layer.
+     2. Add the corresponding bias.
+     3. Apply the activation function.
