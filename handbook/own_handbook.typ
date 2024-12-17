@@ -1388,7 +1388,7 @@ Effect:
 2. *Computation in Layer 3 (Hidden Layer)*
    - *Inputs*: Vector $a^{[2]}$, the output of Layer 2.
    - *Outputs*: Vector $a^{[3]}$, computed as:
-     $$a_j^{[3]} = g(w_j^{[3]} \cdot a^{[2]} + b_j^{[3]})$$
+     $a_j^{[3]} = g(w_j^{[3]} \cdot a^{[2]} + b_j^{[3]})$
      - $g$: Sigmoid activation function.
      - $w_j^{[3]}$: Weight vector for neuron $j$ in Layer 3.
      - $b_j^{[3]}$: Bias for neuron $j$ in Layer 3.
@@ -1406,7 +1406,7 @@ Effect:
 4. *General Computation for Any Layer*
    - For layer $l$ and neuron $j$:
      $$
-     a_j^{[l]} = g(w_j^{[l]} \cdot a^{[l-1]} + b_j^{[l]})
+     a_j^{[l]} = g(w_j^{[l]} . a^{[l-1]} + b_j^{[l]})
      $$
      - $a^{[l-1]}$: Activation vector from the previous layer.
      - $g$: Activation function (e.g., sigmoid, ReLU, etc.).
@@ -1421,3 +1421,48 @@ Effect:
      1. Dot-product the weight vector with the input activations from the previous layer.
      2. Add the corresponding bias.
      3. Apply the activation function.
+
+= Inference making predictions (forward propagation)
+
+#figure(
+  image("images/2024-12-17-inference-making-predictions.png")
+)
+
+1. *Problem Overview*
+   - Task: Binary classification to distinguish between handwritten digits '0' and '1'.
+   - Input: 8x8 grayscale image (64 pixel intensity values ranging from 0 to 255).
+   - Neural network architecture:
+     - *Input layer*: 64 features.
+     - *Hidden layer 1*: 25 neurons.
+     - *Hidden layer 2*: 15 neurons.
+     - *Output layer*: 1 neuron (predicted probability of digit being '1').
+
+2. *Sequence of Computations*
+   - Start with the input $X$ (treated as $a^{[0]}$ by convention).
+   - Compute $a^{[1]}$:
+     $a^{[1]}_j = g(w_j^{[1]} \cdot X + b_j^{[1]})$
+     - $g$: Activation function.
+     - $j$: Index of neuron (1 to 25).
+   - Compute $a^{[2]}$:
+     $a^{[2]}_j = g(w_j^{[2]} \cdot a^{[1]} + b_j^{[2]})$
+     - Layer 2 has 15 neurons.
+   - Compute $a^{[3]}$:
+     $a^{[3]} = g(w^{[3]} \cdot a^{[2]} + b^{[3]})$
+     - $a^{[3]}$: Scalar output (predicted probability).
+
+3. *Binary Classification Output*
+   - Optionally threshold $a^{[3]}$ at 0.5:
+     - If $a^{[3]} \geq 0.5$: Predict '1'.
+     - Otherwise: Predict '0'.
+
+4. *Function Notation*
+   - Neural network's output can be expressed as $f(X)$, analogous to linear or logistic regression.
+   - $f(X)$: Function mapping input $X$ to output $a^{[3]}$.
+
+5. *Algorithm Name*
+   - *Forward Propagation*:
+     - Propagates activations through the network, layer by layer, in a forward direction (from input to output).
+
+6. *Architectural Insights*
+   - Design: Hidden layers with decreasing neuron counts (e.g., 25 → 15 → 1) are typical.
+   - Application: Use pre-trained parameters to perform inference on new data.
