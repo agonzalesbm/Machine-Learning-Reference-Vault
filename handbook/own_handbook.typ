@@ -1438,26 +1438,26 @@ Effect:
      - *Output layer*: 1 neuron (predicted probability of digit being '1').
 
 2. *Sequence of Computations*
-   - Start with the input $X$ (treated as $a^{[0]}$ by convention).
-   - Compute $a^{[1]}$:
-     $a^{[1]}_j = g(w_j^{[1]} \cdot X + b_j^{[1]})$
+   - Start with the input $X$ (treated as $a^[0]$ by convention).
+   - Compute $a^[1]$:
+     $a^[1]_j = g(w_j^[1] \cdot X + b_j^[1])$
      - $g$: Activation function.
      - $j$: Index of neuron (1 to 25).
-   - Compute $a^{[2]}$:
-     $a^{[2]}_j = g(w_j^{[2]} \cdot a^{[1]} + b_j^{[2]})$
+   - Compute $a^[2]$:
+     $a^[2]_j = g(w_j^[2] \cdot a^[1] + b_j^[2])$
      - Layer 2 has 15 neurons.
-   - Compute $a^{[3]}$:
-     $a^{[3]} = g(w^{[3]} \cdot a^{[2]} + b^{[3]})$
-     - $a^{[3]}$: Scalar output (predicted probability).
+   - Compute $a^[3]$:
+     $a^[3] = g(w^[3] \cdot a^[2] + b^[3])$
+     - $a^[3]$: Scalar output (predicted probability).
 
 3. *Binary Classification Output*
-   - Optionally threshold $a^{[3]}$ at 0.5:
-     - If $a^{[3]} \geq 0.5$: Predict '1'.
+   - Optionally threshold $a^[3]$ at 0.5:
+     - If $a^[3] \geq 0.5$: Predict '1'.
      - Otherwise: Predict '0'.
 
 4. *Function Notation*
    - Neural network's output can be expressed as $f(X)$, analogous to linear or logistic regression.
-   - $f(X)$: Function mapping input $X$ to output $a^{[3]}$.
+   - $f(X)$: Function mapping input $X$ to output $a^[3]$.
 
 5. *Algorithm Name*
    - *Forward Propagation*:
@@ -1466,3 +1466,33 @@ Effect:
 6. *Architectural Insights*
    - Design: Hidden layers with decreasing neuron counts (e.g., 25 → 15 → 1) are typical.
    - Application: Use pre-trained parameters to perform inference on new data.
+
+= Inference in Code
+
+#figure(
+  image("images/2024-12-17-inferrence-in-code.png")
+)
+
+1. *Problem Setup*
+   - Input features $x$: [200°C, 17 minutes].
+   - Neural network structure:
+     - *Layer 1*: Dense layer with 3 hidden units using sigmoid activation.
+     - *Layer 2*: Dense layer with 1 unit using sigmoid activation.
+
+2. *Sequence of Computations*
+   - Compute $a^[1]$:
+     - Apply Layer 1 to $x$.
+     - $a^[1]$ is a list of 3 values (e.g., [0.2, 0.7, 0.3]).
+   - Compute $a^[2]$:
+     - Apply Layer 2 to $a^[1]$.
+     - $a^[2]$ is a single scalar value (e.g., 0.8).
+
+3. *Binary Classification Output*
+   - Threshold $a^[2]$ at 0.5:
+     - If $a^[2] g = 0.5$: Predict $y = 1$.
+     - Otherwise: Predict $y = 0$.
+
+4. *Layer Details*
+   - *Dense Layer*:
+     - A layer type with learned parameters $w$ (weights) and $b$ (biases).
+     - Uses the sigmoid function for activation in this example.
