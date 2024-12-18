@@ -1,9 +1,8 @@
 import random
 import math
 import pandas as pd
-from seaborn import load_dataset
 from rich.console import Console
-
+from sklearn.datasets import load_breast_cancer
 
 class TumorClassificationCapstone:
     """
@@ -16,10 +15,11 @@ class TumorClassificationCapstone:
 
     def __init__(self) -> None:
         self.logger = Console()
-        raw_data = load_dataset("penguins")
-        filtered_data = raw_data.dropna()
-        self.features = filtered_data[["bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"]]
-        self.labels = (filtered_data["species"] == "Adelie").astype(int)
+        raw_data = load_breast_cancer(as_frame=True)
+        data = raw_data["data"]
+        data["target"] = raw_data["target"]
+        self.features = data.iloc[:, :-1]
+        self.labels = data["target"]
 
     def divide_data(self, inputs, targets, ratio=0.2):
         idx = list(range(len(inputs)))
@@ -68,7 +68,6 @@ class TumorClassificationCapstone:
         preds = self.classify(test_in, params, offset)
         performance = self.score(test_out, preds)
         self.logger.print(f"[bold green]Model Accuracy: {performance * 100:.2f}%[/bold green]")
-
 
 if __name__ == "__main__":
     experiment = TumorClassificationCapstone()
