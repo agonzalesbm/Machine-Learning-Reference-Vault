@@ -1336,3 +1336,295 @@ Effect:
 === Logistic Regression vs Linear Regression
 - *Logistic Function:* In logistic regression, the hypothesis function is the sigmoid function:
 - The regularization term works similarly to regularized linear regression, but for logistic regression, $f$ is the sigmoid function, not a linear function.
+
+= Neurons and the brain
+
+#figure(
+  image("images/2024-12-09-neurons-and-the-brain.png")
+)
+
+== Biological vs. Artificial Neural Networks
+- *Biological neurons*:
+  - Composed of dendrites (inputs), a nucleus (cell body), and an axon (output).
+  - Function through electrical impulses and neuron-to-neuron connections.
+- *Artificial neurons*:
+  - Simplified mathematical models taking numerical inputs, performing computations, and producing outputs.
+  - Organized into layers to process data collectively.
+
+== Factors Behind Recent Success
+1. *Data availability*:
+   - Digitalization of society has provided vast datasets for applications.
+2. *Algorithm scalability*:
+   - Traditional algorithms like linear regression struggled to improve with more data.
+   - Larger neural networks demonstrated increased performance with more data.
+
+= Demand Prediction
+
+#figure(
+  image("images/2024-12-10-demand-prediction.png")
+)
+
+== Structure of a Neural Network:
+    - *Input Layer*: Accepts a vector of features (data).
+    - *Hidden Layer*: Processes the input vector and outputs a vector of activations (data like activators).
+    - *Output Layer*: Takes the hidden layer's output and produces the final activation or prediction.
+== Feature Representation:
+    - Neural networks automatically determine relevant features during training.
+    - No need to predefine features like affordability, awareness, or perceived quality explicitly.
+    - The network learns and selects the most useful features for prediction.
+
+= More complex neural networks
+
+#figure(
+  image("images/2024-12-17-more-complex-neural-networks.png")
+)
+
+1. *Introduction to Layers*
+   - This example involves a neural network with *four layers* (excluding the input layer).
+   - *Layer 0*: Input layer (not counted in the total layer count).
+   - *Layers 1, 2, 3*: Hidden layers.
+   - *Layer 4*: Output layer.
+
+2. *Computation in Layer 3 (Hidden Layer)*
+   - *Inputs*: Vector $a^{[2]}$, the output of Layer 2.
+   - *Outputs*: Vector $a^{[3]}$, computed as:
+     $a_j^{[3]} = g(w_j^{[3]} \cdot a^{[2]} + b_j^{[3]})$
+     - $g$: Sigmoid activation function.
+     - $w_j^{[3]}$: Weight vector for neuron $j$ in Layer 3.
+     - $b_j^{[3]}$: Bias for neuron $j$ in Layer 3.
+
+   - The result is a vector $a^{[3]}$, where each element corresponds to an activation value for a neuron in Layer 3.
+
+3. *Notation Details*
+   - Superscripts $[l]$: Indicate layer $l$.
+   - Subscripts $j$: Refer to the $j^{t h}$ neuron in a layer.
+   - Example:
+     - $a^{[3]}_2$: Activation of the 2nd neuron in Layer 3.
+     - $w^{[3]}_2$, $b^{[3]}_2$: Parameters for the same neuron.
+   - Input vector $X$ is denoted as $a^{[0]}$, aligning with the general notation.
+
+4. *General Computation for Any Layer*
+   - For layer $l$ and neuron $j$:
+     $$
+     a_j^{[l]} = g(w_j^{[l]} . a^{[l-1]} + b_j^{[l]})
+     $$
+     - $a^{[l-1]}$: Activation vector from the previous layer.
+     - $g$: Activation function (e.g., sigmoid, ReLU, etc.).
+
+5. *Activation Functions*
+   - Current focus: Sigmoid function $g(z) = {1}/{1 + e^{-z}}$.
+   - *Role*: Outputs activation values for neurons in the network.
+   - Future lessons may cover alternative activation functions.
+
+6. *Recap of Activation Calculation*
+   - To compute activations for any neuron in any layer:
+     1. Dot-product the weight vector with the input activations from the previous layer.
+     2. Add the corresponding bias.
+     3. Apply the activation function.
+
+= Inference making predictions (forward propagation)
+
+#figure(
+  image("images/2024-12-17-inference-making-predictions.png")
+)
+
+1. *Problem Overview*
+   - Task: Binary classification to distinguish between handwritten digits '0' and '1'.
+   - Input: 8x8 grayscale image (64 pixel intensity values ranging from 0 to 255).
+   - Neural network architecture:
+     - *Input layer*: 64 features.
+     - *Hidden layer 1*: 25 neurons.
+     - *Hidden layer 2*: 15 neurons.
+     - *Output layer*: 1 neuron (predicted probability of digit being '1').
+
+2. *Sequence of Computations*
+   - Start with the input $X$ (treated as $a^[0]$ by convention).
+   - Compute $a^[1]$:
+     $a^[1]_j = g(w_j^[1] \cdot X + b_j^[1])$
+     - $g$: Activation function.
+     - $j$: Index of neuron (1 to 25).
+   - Compute $a^[2]$:
+     $a^[2]_j = g(w_j^[2] \cdot a^[1] + b_j^[2])$
+     - Layer 2 has 15 neurons.
+   - Compute $a^[3]$:
+     $a^[3] = g(w^[3] \cdot a^[2] + b^[3])$
+     - $a^[3]$: Scalar output (predicted probability).
+
+3. *Binary Classification Output*
+   - Optionally threshold $a^[3]$ at 0.5:
+     - If $a^[3] \geq 0.5$: Predict '1'.
+     - Otherwise: Predict '0'.
+
+4. *Function Notation*
+   - Neural network's output can be expressed as $f(X)$, analogous to linear or logistic regression.
+   - $f(X)$: Function mapping input $X$ to output $a^[3]$.
+
+5. *Algorithm Name*
+   - *Forward Propagation*:
+     - Propagates activations through the network, layer by layer, in a forward direction (from input to output).
+
+6. *Architectural Insights*
+   - Design: Hidden layers with decreasing neuron counts (e.g., 25 → 15 → 1) are typical.
+   - Application: Use pre-trained parameters to perform inference on new data.
+
+= Inference in Code
+
+#figure(
+  image("images/2024-12-17-inferrence-in-code.png")
+)
+
+1. *Problem Setup*
+   - Input features $x$: [200°C, 17 minutes].
+   - Neural network structure:
+     - *Layer 1*: Dense layer with 3 hidden units using sigmoid activation.
+     - *Layer 2*: Dense layer with 1 unit using sigmoid activation.
+
+2. *Sequence of Computations*
+   - Compute $a^[1]$:
+     - Apply Layer 1 to $x$.
+     - $a^[1]$ is a list of 3 values (e.g., [0.2, 0.7, 0.3]).
+   - Compute $a^[2]$:
+     - Apply Layer 2 to $a^[1]$.
+     - $a^[2]$ is a single scalar value (e.g., 0.8).
+
+3. *Binary Classification Output*
+   - Threshold $a^[2]$ at 0.5:
+     - If $a^[2] g = 0.5$: Predict $y = 1$.
+     - Otherwise: Predict $y = 0$.
+
+4. *Layer Details*
+   - *Dense Layer*:
+     - A layer type with learned parameters $w$ (weights) and $b$ (biases).
+     - Uses the sigmoid function for activation in this example.
+
+= Data in TensorFlow
+
+#figure(
+  image("images/2024-12-17-data-in-tensor-flow.png")
+)
+
+1. *Definition of $a^[1]$*
+   - $a^[1]$ is computed as the output of applying *Layer 1* to $x$.
+   - Result: A $1 "times" 3$ matrix.
+   - Example: $a^[1] = "tf.tensor"([0.2, 0.7, 0.3])$ with shape $(1, 3)$.
+
+2. *Details of Tensor Representation*
+   - $a^[1]$ is stored as a TensorFlow tensor:
+     - Data type: Float32 (32-bit floating-point numbers).
+   - *Tensor Definition*:
+     - A data type created by TensorFlow to efficiently store and compute on matrices.
+     - Simplified understanding: Treat tensors as matrices for this course.
+
+3. *Converting Between TensorFlow and NumPy*
+   - TensorFlow tensors and NumPy arrays are two different matrix representations due to historical development.
+   - Conversion example:
+     - TensorFlow to NumPy use: .
+      #codeBlock(
+        ```python
+          a^[1].numpy()
+        ```
+      )
+     - Result: Converts the TensorFlow tensor to a NumPy array.
+
+= Building a neural network
+
+#figure(
+  image("images/2024-12-17-building-neural-network.png")
+)
+
+1. *Specifying Layers Sequentially*
+   - Layers (e.g., Layer 1, Layer 2, Layer 3) are defined and combined into a neural network using TensorFlow's `Sequential` function.
+   - TensorFlow automatically strings the layers together into a cohesive model.
+   - TensorFlow's `Sequential` function simplifies model creation by combining layers efficiently.
+
+2. *Workflow for Neural Network Training*
+   - Steps:
+     - Define layers with `Sequential`.
+     - Store data in a matrix.
+     - Run `compile` to configure the model.
+     - Use `fit` to train the model.
+   - Example: This process mirrors earlier examples, like the coffee classification network.
+
+3. *Inference and Predictions*
+   - Use `model.predict(X_new)` to make predictions on new data.
+   - The function generates predictions based on the trained model.
+
+4. *Compact Code Using Sequential*
+   - Instead of explicitly assigning layers (e.g., Layer 1, Layer 2, Layer 3), place them directly into the `Sequential` function.
+   - Benefit: Produces more concise and readable code.
+   - Example:
+     - Explicit approach: Define and connect layers manually.
+     - Compact approach: Use `Sequential` to define the network structure in one step.
+
+#figure(
+  image("images/2024-12-17-foward-prop-single-layer.png")
+)
+
+1. *Overview*
+   - Forward propagation can be implemented manually in Python to understand the underlying mechanics of frameworks like TensorFlow and PyTorch.
+   - This exercise helps gain intuition about computations and could inspire future innovations in neural network frameworks.
+
+2. *Using 1D Arrays*
+   - Vectors and parameters are represented as 1D arrays in Python (single square brackets), unlike 2D matrices (double square brackets).
+   - Example: A parameter like $w^[2]_1$ is represented as $w 2_1$ in Python using underscores for subscripts.
+
+3. *Step-by-Step Computation of $a 1$ (First Layer Activations)*
+   - *Compute $a 1_1$*:
+     - Parameters: $w 1_1 = [1, 2]$, $b 1_1 = -1$.
+     - $z 1_1 = w 1_1 \cdot x + b 1_1$.
+     - $a 1_1 = g(z 1_1)$, where $g$ is the sigmoid function.
+
+   - *Compute $a 1_2$*:
+     - Parameters: $w 1_2 = [-3, 4]$, $b 1_2 = 0$.
+     - $z 1_2 = w 1_2 \cdot x + b 1_2$.
+     - $a 1_2 = g(z 1_2)$.
+
+   - *Compute $a 1_3$*:
+     - Similar process to $a 1_1$ and $a 1_2$ with respective weights and biases.
+
+   - *Group $a 1_1$, $a 1_2$, and $a 1_3$*:
+     - Use `np.array` to combine these values into $a 1$, which represents the output of the first layer.
+
+4. *Compute $a 2$ (Second Layer Output)*
+   - Parameters: $w 2_1$ and $b 2_1$.
+   - $z 2 = w 2_1 \cdot a 1 + b 2_1$.
+   - $a 2 = g(z 2)$.
+
+= General Implementation of forward propagation
+
+#figure(
+  image("images/2024-12-17-general-forward-propagation.png")
+)
+
+=== Dense Layer Function
+
+- *Definition:* A dense layer is a single layer of a neural network that computes activations from the previous layer using weights $w$ and biases $b$.
+
+==== Parameters
+1. *Input Activation:* The activation from the previous layer, denoted as $a$ (e.g., $a_0 = x$ for input layer).
+2. *Weights ($w$):* Parameters stacked in columns, e.g., $w_{1,1}, w_{1,2}, w_{1,3}$ form a $2  3$ matrix.
+3. *Biases ($b$):* Parameters stacked into a 1D array, e.g., $[-1, 1, 2]$.
+
+==== Dense Function Workflow
+1. *Initialization:*
+   - Compute the number of units: $"units" = W."shape"[1]$.
+   - Initialize $a$ as an array of zeros with $"units"$ elements.
+2. *Compute Activations:*
+   - Loop through each unit $j$ in the range $[0, "units"-1]$:
+     - Extract column $j$ of $w$ using $W[:, j]$.
+     - Compute $z = w \cdot a + b[j]$.
+     - Compute activation $a[j] = g(z)$, where $g$ is the sigmoid function.
+3. *Return Output:* The array $a$ containing activations for the current layer.
+
+#codeBlock(
+  ```python
+  def dense(a_prev, W, b):
+      units = W.shape[1]
+      a = np.zeros(units)
+      for j in range(units):
+          w = W[:, j]
+          z = np.dot(w, a_prev) + b[j]
+          a[j] = sigmoid(z)
+      return a
+  ```
+)
